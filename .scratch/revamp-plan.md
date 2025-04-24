@@ -1,3 +1,5 @@
+# 24 April 2025
+
 ## High Priority (Core Documentation)
 
 1. introduction.md - Essential for new users to understand Laravolt
@@ -22,3 +24,18 @@
 1. latihan-portal-berita.md - Appears to be a tutorial/example
 1. membuat-authorized-menu.md - Specific use case
 1. naming-things.md - Development best practices
+
+# 25 April 2025
+
+Here is the updated list of remaining files and folders in docs-old that still need migration:
+
+- blade/ (directory containing Blade component docs)
+- controller.md
+- editor-ide.md
+- integrasi-react.md
+- latihan-portal-berita.md
+- membuat-authorized-menu.md
+- naming-things.md
+- performance.md
+- routes.md
+- thunderclap.md
