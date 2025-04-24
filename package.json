@@ -2,6 +2,9 @@
   "name": "tailwind-plus-syntax",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -26,19 +29,20 @@
     "fast-glob": "^3.3.3",
     "flexsearch": "^0.7.43",
     "js-yaml": "^4.1.0",
-    "next": "^14.2.28",
+    "next": "^15.3.1",
     "next-themes": "^0.2.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-highlight-words": "^0.20.0",
+    "prismjs": "^1.30.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-highlight-words": "^0.21.0",
     "simple-functional-loader": "^1.2.1",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
-    "eslint-config-next": "^14.2.28",
+    "eslint-config-next": "^15.3.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "sharp": "0.33.1"

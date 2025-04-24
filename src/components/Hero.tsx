@@ -66,7 +66,7 @@ export function Hero() {
               <p className="mt-3 text-2xl tracking-tight text-slate-400">
                 Build sustainable information systems with Laravel,
                 battle-tested components, and years of experience facing
-                Indonesia's unique technology landscape.
+                Indonesia&apos;s unique technology landscape.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button href="/v6/installation">Get started</Button>

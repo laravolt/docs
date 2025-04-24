@@ -1,7 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Highlight } from 'prism-react-renderer'
+import { Highlight, Prism } from 'prism-react-renderer'
+;(typeof global !== 'undefined' ? global : window).Prism = Prism
+require('prismjs/components/prism-markup-templating')
+require('prismjs/components/prism-bash')
+require('prismjs/components/prism-php')
 
 function CopyIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -80,7 +84,7 @@ export function Fence({
   return (
     <div className="group relative">
       <div className="absolute top-2 left-4 rounded bg-gray-800/50 py-1.5 font-mono text-xs text-gray-500">
-        {displayLanguage}
+        {copied ? <span className="text-white">Copied</span> : displayLanguage}
       </div>
 
       <button
