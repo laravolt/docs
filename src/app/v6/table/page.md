@@ -17,7 +17,7 @@ Laravolt Table provides a UI for displaying data in tabular form with supporting
 
 Because tables are built on Livewire, all Table classes are stored in the `app\Http\Livewire\Table` folder. To create a new Table, run the `make:table` command:
 
-```language[type=bash]
+```bash
 php artisan make:table UserTable
 ```
 
