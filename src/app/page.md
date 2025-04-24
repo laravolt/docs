@@ -66,7 +66,11 @@ Get up and running with Laravolt in just a few minutes:
 
 ```bash
 composer require laravolt/laravolt
+```
 
+Run installation command:
+
+```bash
 php artisan laravolt:install
 ```
 
