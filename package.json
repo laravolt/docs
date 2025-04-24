@@ -1,0 +1,47 @@
+{
+  "name": "tailwind-plus-syntax",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "browserslist": "defaults, not ie <= 11",
+  "dependencies": {
+    "@algolia/autocomplete-core": "^1.19.0",
+    "@headlessui/react": "^2.2.2",
+    "@markdoc/markdoc": "^0.4.0",
+    "@markdoc/next.js": "^0.3.7",
+    "@sindresorhus/slugify": "^2.2.1",
+    "@tailwindcss/postcss": "^4.1.4",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/node": "^20.17.30",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
+    "@types/react-highlight-words": "^0.16.7",
+    "caniuse-lite": "^1.0.30001715",
+    "clsx": "^2.1.1",
+    "fast-glob": "^3.3.3",
+    "flexsearch": "^0.7.43",
+    "js-yaml": "^4.1.0",
+    "next": "^14.2.28",
+    "next-themes": "^0.2.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-highlight-words": "^0.20.0",
+    "simple-functional-loader": "^1.2.1",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.28",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "sharp": "0.33.1"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+}
