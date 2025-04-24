@@ -3,7 +3,10 @@ export const navigation = [
     title: 'Introduction',
     links: [
       { title: 'Getting started', href: '/' },
+      { title: 'Introduction', href: '/v6/introduction' },
       { title: 'Installation', href: '/v6/installation' },
+      { title: 'Hello World', href: '/v6/hello-world' },
+      { title: 'Starter Kit', href: '/v6/starter-kit' },
     ],
   },
   {
@@ -13,6 +16,14 @@ export const navigation = [
       { title: 'Table', href: '/v6/table' },
       { title: 'Menu', href: '/v6/menu' },
       { title: 'Action Button', href: '/v6/action-button' },
+      { title: 'Flash Messages', href: '/v6/flash-messages' },
+    ],
+  },
+  {
+    title: 'UI Components',
+    links: [
+      { title: 'Statistics', href: '/v6/statistics' },
+      { title: 'Charts', href: '/v6/charts' },
     ],
   },
   {
