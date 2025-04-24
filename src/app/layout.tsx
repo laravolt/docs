@@ -24,10 +24,10 @@ const lexend = localFont({
 export const metadata: Metadata = {
   title: {
     template: '%s - Docs',
-    default: 'CacheAdvance - Never miss the cache again.',
+    default: 'Laravolt - Digital empowerment platform.',
   },
   description:
-    'Cache every single thing your app could ever do ahead of time, so your code never even has to run at all.',
+    'Explore the official documentation for Laravolt, a digital empowerment platform designed to accelerate application development.',
 }
 
 export default function RootLayout({

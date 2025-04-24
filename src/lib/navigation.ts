@@ -3,7 +3,7 @@ export const navigation = [
     title: 'Introduction',
     links: [
       { title: 'Getting started', href: '/' },
-      { title: 'Introduction', href: '/v6/introduction' },
+      { title: 'Overview', href: '/v6/overview' },
       { title: 'Installation', href: '/v6/installation' },
       { title: 'Hello World', href: '/v6/hello-world' },
       { title: 'Starter Kit', href: '/v6/starter-kit' },
