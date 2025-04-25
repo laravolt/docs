@@ -1,5 +1,6 @@
 import { Callout } from '@/components/Callout'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
+import { IFrame } from '@/components/IFrame'
 
 const tags = {
   callout: {
@@ -40,6 +41,15 @@ const tags = {
       description: { type: String },
       icon: { type: String },
       href: { type: String },
+    },
+  },
+  iframe: {
+    render: IFrame,
+    attributes: {
+      src: { type: String },
+      title: { type: String },
+      width: { type: String },
+      height: { type: String },
     },
   },
 }
