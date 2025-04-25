@@ -37,7 +37,7 @@ Due to this symlink approach, the `/public/laravolt` folder is automatically add
 
 Laravolt generates several migration scripts to create tables and columns required for authentication and authorization. The resulting database structure is illustrated in the Entity Relationship Diagram below:
 
-<iframe width="100%" height="300" src='https://dbdiagram.io/embed/5fbb7d653a78976d7b7d0427'> </iframe>
+{% iframe width="100%" height="300" src="https://dbdiagram.io/embed/5fbb7d653a78976d7b7d0427" title="Laravolt Authentication & Authorization ERD" /%}
 
 Before running `php artisan migrate`, you can freely modify these migration scripts to match your specific requirements.
 
