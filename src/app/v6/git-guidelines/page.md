@@ -24,7 +24,7 @@ There are two methods commonly used as references:
 1. [GitFlow](https://nvie.com/posts/a-successful-git-branching-model/) (ideal version for product development, relatively more complex, suitable for large teams and project scopes)
 2. [Github Flow](https://guides.github.com/introduction/flow/) (simple, suitable for small teams and projects)
 
-Each method has its own advantages and disadvantages. In our journey, we've implemented a new method that's appropriate for developing information systems in Indonesia, called **[Simplified Git Flow](https://medium.com/goodtogoat/simplified-git-flow-5dc37ba76ea8)**.
+Each method has its own advantages and disadvantages. In our journey, we've implemented a new method that's appropriate for developing information systems in South East Asia, called **[Simplified Git Flow](https://medium.com/goodtogoat/simplified-git-flow-5dc37ba76ea8)**.
 
 ### Simplified Git Flow
 
