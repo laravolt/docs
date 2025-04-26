@@ -7,7 +7,7 @@ require('prismjs/components/prism-markup-templating')
 require('prismjs/components/prism-bash')
 require('prismjs/components/prism-php')
 
-function CopyIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function CopyIcon(props: Readonly<React.ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -24,7 +24,7 @@ function CopyIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   )
 }
 
-function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function CheckIcon(props: Readonly<React.ComponentPropsWithoutRef<'svg'>>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -43,10 +43,11 @@ function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 export function Fence({
   children,
   language,
-}: {
+}: Readonly<{
   children: string
   language: string
-}) {
+}>) {
+  console.log(children.trimEnd())
   const [copied, setCopied] = useState(false)
 
   // Map of language names to display
@@ -83,7 +84,7 @@ export function Fence({
 
   return (
     <div className="group relative">
-      <div className="absolute top-2 left-4 rounded bg-gray-800/50 py-1.5 font-mono text-xs text-gray-500">
+      <div className="absolute top-2 left-4 rounded py-1.5 font-mono text-xs text-gray-500">
         {copied ? <span className="text-white">Copied</span> : displayLanguage}
       </div>
 
@@ -122,7 +123,7 @@ export function Fence({
                 const { key: _, ...linePropsWithoutKey } = lineProps
 
                 return (
-                  <div key={lineIndex} {...linePropsWithoutKey}>
+                  <div key={`line-${lineIndex + 10}`} {...linePropsWithoutKey}>
                     {line
                       .filter((token) => !token.empty)
                       .map((token, tokenIndex) => {
@@ -134,7 +135,10 @@ export function Fence({
                         const { key: __, ...tokenPropsWithoutKey } = tokenProps
 
                         return (
-                          <span key={tokenIndex} {...tokenPropsWithoutKey} />
+                          <span
+                            key={`token-${tokenIndex + 100}`}
+                            {...tokenPropsWithoutKey}
+                          />
                         )
                       })}
                   </div>

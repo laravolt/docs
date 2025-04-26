@@ -45,3 +45,7 @@ pre[class*='language-'] {
 .token.combinator {
   color: var(--color-slate-400);
 }
+
+.token-line:empty {
+  height: 16px;
+}

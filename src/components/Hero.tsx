@@ -30,11 +30,13 @@ return [
 ];`
 
 const tabs = [
-  { name: 'config/laravolt/auto-crud-resources/user.php', isActive: true },
+  { name: 'config/.../user.php', isActive: true },
   { name: 'routes/web.php', isActive: false },
 ]
 
-function TrafficLightsIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+function TrafficLightsIcon(
+  props: Readonly<React.ComponentPropsWithoutRef<'svg'>>,
+) {
   return (
     <svg aria-hidden="true" viewBox="0 0 42 10" fill="none" {...props}>
       <circle cx="5" cy="5" r="4.5" />
@@ -139,7 +141,7 @@ export function Hero() {
                       {Array.from({
                         length: code.split('\n').length,
                       }).map((_, index) => (
-                        <Fragment key={index}>
+                        <Fragment key={`line-${index + 1}`}>
                           {(index + 1).toString().padStart(2, '0')}
                           <br />
                         </Fragment>
@@ -166,10 +168,13 @@ export function Hero() {
                         >
                           <code className="px-4">
                             {tokens.map((line, lineIndex) => (
-                              <div key={lineIndex} {...getLineProps({ line })}>
+                              <div
+                                key={`line-${lineIndex + 10}`}
+                                {...getLineProps({ line })}
+                              >
                                 {line.map((token, tokenIndex) => (
                                   <span
-                                    key={tokenIndex}
+                                    key={`token-${tokenIndex + 100}`}
                                     {...getTokenProps({ token })}
                                   />
                                 ))}
