@@ -1,42 +1,39 @@
 ---
-title: Statistics
-description: Displaying single value metrics with attractive styling
+title: Statistics Components
+description: Beautiful and dynamic single-value data visualization
 nextjs:
   metadata:
-    title: Statistics Components in Laravolt
-    description: How to create and customize statistic components to display key metrics in your Laravolt applications
+    title: Statistics Components
+    description: Learn how to create and customize single-value statistic components in Laravolt using Livewire.
 ---
 
-Statistics components provide a visually appealing way to present important metrics and KPIs in your application. Built as Livewire components, they allow easy display of single-value data with supporting elements like labels and icons.
+Statistics components provide an elegant way to display important single-value metrics in your application. These visually appealing components combine values, labels, and icons to highlight key data points for users.
 
 ---
 
 ## Overview
 
-Laravolt's Statistics component is designed to highlight key metrics in your application with a clean, attractive UI. Each statistic displays a single value with supporting elements like a label, icon, and color coding to provide context and visual emphasis.
+Statistics components are designed to present focused metrics that give users immediate insights into application data. Built on Livewire, these components are dynamic, reactive, and easy to customize.
 
-![Statistics Component Preview](https://cdn.statically.io/gh/laravolt/storage/master/2021/10/statistic-preview-br07F2.png)
+![Statistics Example](https://cdn.statically.io/gh/laravolt/storage/master/2021/10/statistic-preview-br07F2.png)
 
-## Installation/Setup
+## Installation
 
-Statistics in Laravolt are implemented as Livewire components. Before using them, make sure you have:
+Statistics components are included in the Laravolt UI package. If you haven't installed Laravolt UI yet, refer to the [installation guide](/v6/installation).
 
-1. Installed Livewire in your Laravel project
-2. Included Laravolt's UI package
-
-If you're using the complete Laravolt package, these dependencies are automatically installed.
+The statistics component relies on Laravel Livewire, which should be installed as part of the Laravolt installation process.
 
 ## Basic Usage
 
-### Creating a Statistic Component
+### Creating a Statistics Component
 
-Laravolt provides an artisan command to generate a new statistic component:
+To create a new statistics component, use the Artisan command:
 
 ```bash
 php artisan make:statistic TotalUser
 ```
 
-This will create a new file at `app/Http/Livewire/Statistic/TotalUser.php`. You can then customize this component to display your specific data:
+This command generates a new Livewire component class in the `app/Http/Livewire/Statistic` directory. The generated class extends `Laravolt\Ui\Statistic` and provides a template for you to customize:
 
 ```php
 <?php
@@ -58,75 +55,103 @@ class TotalUser extends Statistic
 }
 ```
 
-### Displaying the Statistic Component
+### Displaying a Statistics Component
 
-Once your statistic component is defined, you can display it in your views using any of these methods:
+Once created, you can display your statistic component in any Blade view using one of these methods:
 
-```php
+```blade
 <livewire:statistic.total-user />
 
-// or
-
+{{-- Or using the @livewire directive --}}
 @livewire('statistic.total-user')
 
-// or
-
+{{-- Or using the full class name --}}
 @livewire(\App\Http\Livewire\Statistic\TotalUser::class)
 ```
 
-## Advanced Features
+You can include multiple statistics components in the same view to create dashboards:
 
-### Customizing the Label
-
-To change the statistic's label, modify the `$label` property:
-
-```php
-public string $label = 'New Users';
+```blade
+<div class="ui three statistics">
+    <livewire:statistic.total-user />
+    <livewire:statistic.active-user />
+    <livewire:statistic.new-registrations />
+</div>
 ```
 
-For dynamic labels that depend on runtime conditions, override the `label()` method:
+## Customization
+
+### Label Customization
+
+The label appears below the value and describes what the statistic represents. You can set a static label using the `$label` property:
+
+```php
+public string $label = 'Total Users';
+```
+
+For dynamic labels that change based on external factors, override the `label()` method:
 
 ```php
 public function label(): string
 {
     $month = request()->query('month', date('F'));
 
-    return "New Users in $month";
+    return "New Users in {$month}";
 }
 ```
 
-### Customizing the Value
+### Value Configuration
 
-The value displayed in the statistic is determined by the `value()` method:
+The value is the main focus of a statistics component. Override the `value()` method to determine what value should be displayed:
 
 ```php
 public function value(): int|string
 {
-    // Perform any calculations or database queries
-    $count = \App\Models\User::whereMonth('created_at', now()->month)->count();
+    // Simple count
+    return \App\Models\User::count();
 
-    return $count;
+    // More complex calculation
+    $startDate = now()->startOfMonth();
+    $endDate = now()->endOfMonth();
+
+    return \App\Models\User::whereBetween('created_at', [$startDate, $endDate])->count();
 }
 ```
 
-You can return either an integer or a string, allowing for formatted values like percentages or currency:
+You can format the value for better readability:
 
 ```php
 public function value(): int|string
 {
-    $revenue = Order::sum('total');
+    $amount = Order::sum('total');
 
-    return '$' . number_format($revenue, 2);
+    return 'Rp ' . number_format($amount, 0, ',', '.');
 }
 ```
 
-### Customizing the Color
+### Color Options
 
-To change the color of your statistic, set the `$color` property:
+Set the component's color using the `$color` property:
 
 ```php
 public ?string $color = 'red';
 ```
+
+Available color options include:
+
+- red
+- orange
+- yellow
+- olive
+- green
+- teal
+- blue
+- violet
+- purple
+- pink
+- brown
+- grey
+- black
 
 For dynamic colors that change based on the value or other conditions, override the `color()` method:
 
@@ -135,9 +160,9 @@ public function color(): ?string
 {
     $value = $this->value();
 
-    if ($value > 100) {
+    if ($value > 1000) {
         return 'green';
-    } elseif ($value > 50) {
+    } elseif ($value > 500) {
         return 'blue';
     } else {
         return 'red';
@@ -145,17 +170,15 @@ public function color(): ?string
 }
 ```
 
-Available colors include common options like `red`, `green`, `blue`, `yellow`, `purple`, and `gray`.
+### Icon Selection
 
-### Customizing the Icon
-
-To change the icon displayed in your statistic, set the `$icon` property:
+Set an icon using the `$icon` property:
 
 ```php
 public ?string $icon = 'user';
 ```
 
-For dynamic icons, override the `icon()` method:
+For dynamic icons that change based on conditions, override the `icon()` method:
 
 ```php
 public function icon(): ?string
@@ -168,77 +191,72 @@ public function icon(): ?string
         return 'arrow-down';
     }
 
-    return 'circle';
+    return 'minus';
 }
 ```
 
-Laravolt statistics use Font Awesome Duotone icons. For a complete list of available icons, visit [Font Awesome's website](https://fontawesome.com/v5/search?s=duotone).
+Laravolt statistics components use Font Awesome v5 Duotone icons. You can browse the available icons at [Font Awesome](https://fontawesome.com/v5/search?s=duotone).
 
-### Customizing the Title
+## Advanced Features
 
-To add a title or heading above your statistic, set the `$title` property:
+### Polling for Real-time Updates
 
-```php
-public string $title = 'User Statistics';
-```
-
-For dynamic titles, override the `title()` method:
-
-```php
-public function title(): string
-{
-    $period = request()->query('period', 'monthly');
-
-    return "$period User Statistics";
-}
-```
-
-## Examples
-
-### Basic Counter
+You can make your statistics update automatically at regular intervals by adding Livewire's polling feature:
 
 ```php
 class ActiveUsers extends Statistic
 {
-    public string $label = 'Active Users';
-    public ?string $icon = 'user';
+    // Update every 5 seconds
+    protected $listeners = ['$refresh'];
+    protected $polling = 5000;
+
+    // Rest of the class
+}
+```
+
+### Conditional Display
+
+You can conditionally show or hide specific elements of your statistic component:
+
+```php
+public function shouldDisplayIcon(): bool
+{
+    return $this->value() > 0;
+}
+```
+
+### Custom Templates
+
+If you need more customization than the default template provides, you can publish the view:
+
+```bash
+php artisan vendor:publish --tag=laravolt-views
+```
+
+Then edit the statistic component view at `resources/views/vendor/laravolt/statistic/default.blade.php`.
+
+## Examples
+
+### Basic User Counter
+
+```php
+class TotalUsers extends Statistic
+{
+    public string $label = 'Registered Users';
+    public ?string $icon = 'users';
     public ?string $color = 'blue';
 
     public function value(): int|string
     {
-        return User::where('status', 'active')->count();
+        return \App\Models\User::count();
     }
 }
 ```
 
-### Percentage Metric
+### Revenue Monitor with Formatting
 
 ```php
-class TaskCompletionRate extends Statistic
-{
-    public string $label = 'Completion Rate';
-    public ?string $icon = 'tasks';
-    public ?string $color = 'green';
-
-    public function value(): int|string
-    {
-        $total = Task::count();
-        $completed = Task::where('status', 'completed')->count();
-
-        if ($total === 0) {
-            return '0%';
-        }
-
-        $percentage = round(($completed / $total) * 100);
-        return "$percentage%";
-    }
-}
-```
-
-### Currency Display
-
-```php
-class MonthlyRevenue extends Statistic
+class TotalRevenue extends Statistic
 {
     public string $label = 'Monthly Revenue';
     public ?string $icon = 'money-bill';
@@ -252,60 +270,91 @@ class MonthlyRevenue extends Statistic
 
         return 'Rp ' . number_format($revenue, 0, ',', '.');
     }
+}
+```
+
+### Dynamic Task Status
+
+```php
+class PendingTasks extends Statistic
+{
+    public string $label = 'Pending Tasks';
+
+    public function icon(): ?string
+    {
+        $count = $this->value();
+
+        if ($count > 10) {
+            return 'exclamation-triangle';
+        }
+
+        return 'tasks';
+    }
 
     public function color(): ?string
     {
-        $lastMonth = Order::whereMonth('created_at', now()->subMonth()->month)
-            ->whereYear('created_at', now()->subMonth()->year)
-            ->sum('total');
+        $count = $this->value();
 
-        $currentMonth = $this->rawValue();
+        if ($count > 10) {
+            return 'red';
+        } elseif ($count > 5) {
+            return 'yellow';
+        }
 
-        return $currentMonth >= $lastMonth ? 'green' : 'red';
+        return 'green';
     }
 
-    // Helper method to get the raw value for comparison
-    protected function rawValue()
+    public function value(): int|string
     {
-        return Order::whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->sum('total');
+        return \App\Models\Task::where('status', 'pending')->count();
     }
 }
 ```
 
 ## Best Practices
 
-1. **Keep It Simple**: Statistics are meant to display single values. Avoid trying to show complex data in a statistic component.
+### Keep It Simple
 
-2. **Optimize Queries**: Statistics often appear on dashboards where multiple components load simultaneously. Ensure your database queries are optimized.
+- Statistics components are most effective when they show a single, clear value
+- Avoid complex calculations that could slow page loading
+- Use appropriate formatting to make large numbers readable
 
-3. **Use Caching**: For statistics that don't need real-time updates, consider implementing caching to improve performance.
+### Provide Context
 
-4. **Consistent Colors**: Use color consistently across your application to indicate similar types of information.
+- Choose clear, descriptive labels
+- Use colors consistently throughout your application
+- Consider adding trends or comparisons to previous periods
 
-5. **Meaningful Icons**: Choose icons that intuitively represent the data being displayed.
+### Performance Considerations
+
+- For expensive calculations, consider caching the results
+- Use database aggregations rather than PHP calculations when possible
+- If polling for updates, keep the interval reasonable (5+ seconds)
 
 ## Troubleshooting
 
-### Statistics Not Updating
+### Component Not Updating
 
-If your statistics aren't updating:
+If your statistic component isn't updating:
 
-1. Ensure Livewire is properly installed and working
-2. Check for JavaScript errors in your browser console
-3. Verify that your data source is returning current data
+1. Check that Livewire is properly installed and working
+2. Verify that your component's namespace matches its location
+3. Clear view cache and compiled assets:
+   ```bash
+   php artisan view:clear
+   php artisan livewire:discover
+   ```
 
-### Performance Issues
+### Icons Not Displaying
 
-If statistics are loading slowly:
+If icons aren't showing up:
 
-1. Optimize your database queries
-2. Consider implementing caching
-3. Use eager loading if your statistics involve relationships
+1. Ensure Font Awesome is properly loaded in your layout
+2. Verify you're using icon names available in Font Awesome v5
+3. Check console for any JavaScript errors
 
-## Related Components/Features
+## Related Components
 
 - [Charts](/v6/charts) - For displaying more complex data visualizations
-- [Livewire Documentation](https://laravel-livewire.com/docs/) - Learn more about the framework powering statistics
-- [UI Components](/v6/ui-components) - Explore other Laravolt UI components
+- [Tables](/v6/table) - For displaying tabular data
+- [Dashboard Layouts](/v6/layout) - For arranging multiple statistics components
