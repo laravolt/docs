@@ -251,7 +251,7 @@ class OrderService
 
 For complex applications, organize controllers in namespaces:
 
-```
+```txt
 app/Http/Controllers/
   ├── Admin/
   │   ├── UserController.php

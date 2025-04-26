@@ -158,7 +158,7 @@ php artisan laravolt:clap --template=custom
 
 A complete template set should include the following files (all with `.stub` extensions):
 
-```
+```txt
 stubs/custom/
 ├── Controller.stub
 ├── Model.stub

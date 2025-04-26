@@ -76,7 +76,7 @@ mix.js('resources/js/react.js', 'public/js').react() // This ensures React compo
 
 Organize your React components using the following recommended structure:
 
-```
+```txt
 resources/
 ├── js/
 │   ├── react/
