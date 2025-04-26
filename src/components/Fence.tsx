@@ -47,7 +47,6 @@ export function Fence({
   children: string
   language: string
 }>) {
-  console.log(children.trimEnd())
   const [copied, setCopied] = useState(false)
 
   // Map of language names to display
