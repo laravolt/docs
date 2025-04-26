@@ -22,8 +22,19 @@ export const navigation = [
   {
     title: 'UI Components',
     links: [
+      { title: 'Blade Components', href: '/v6/blade-components' },
       { title: 'Statistics', href: '/v6/statistics' },
       { title: 'Charts', href: '/v6/charts' },
+    ],
+  },
+  {
+    title: 'Development Practices',
+    links: [
+      { title: 'Routes', href: '/v6/routes' },
+      { title: 'Controller Best Practices', href: '/v6/controller' },
+      { title: 'Naming Conventions', href: '/v6/naming-conventions' },
+      { title: 'Performance Tips', href: '/v6/performance' },
+      { title: 'Editor/IDE Setup', href: '/v6/editor-ide' },
     ],
   },
   {
@@ -32,6 +43,15 @@ export const navigation = [
       { title: 'Auto CRUD', href: '/v6/auto-crud' },
       { title: 'Workflow', href: '/v6/workflow' },
       { title: 'ACL', href: '/v6/acl' },
+      { title: 'Thunderclap', href: '/v6/thunderclap' },
+      { title: 'React Integration', href: '/v6/react-integration' },
+    ],
+  },
+  {
+    title: 'Tutorials',
+    links: [
+      { title: 'News Portal Tutorial', href: '/v6/news-portal-tutorial' },
+      { title: 'Creating Authorized Menu', href: '/v6/authorized-menu' },
     ],
   },
   {

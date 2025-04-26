@@ -4,7 +4,7 @@ title: Laravolt
 
 # Welcome to Laravolt
 
-Laravolt is a **digital empowerment platform** that combines technical framework and philosophical approach to build sustainable information systems, born from deep experience facing Indonesia's unique technology landscape. {% .lead %}
+Laravolt is a **digital empowerment platform** that combines technical framework and philosophical approach to build sustainable information systems, born from deep experience facing South East Asia's unique technology landscape. {% .lead %}
 
 {% quick-links %}
 
@@ -26,7 +26,7 @@ More than that, Laravolt is:
 
 1. An open source movement, where programmers can learn, coordinate, and contribute locally with international code standards.
 2. Effective and practical coding guidelines to solve everyday problems.
-3. An ecosystem to make Indonesia better through IT.
+3. An ecosystem to make South East Asia better through IT.
 
 ---
 

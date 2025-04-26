@@ -1,151 +1,194 @@
 ---
 title: Flash Messages
-description: Displaying temporary notifications and feedback to users
+description: Elegant toast notifications for Laravel applications
 nextjs:
   metadata:
-    title: Flash Messages (Toast) in Laravolt
-    description: How to implement and customize flash messages to provide user feedback in your Laravolt applications
+    title: Flash Messages
+    description: Learn how to implement and customize flash messages (toast notifications) in your Laravel applications using Laravolt.
 ---
 
-Flash messages provide immediate feedback to users about the result of their actions. Laravolt automatically detects validation errors and session messages with specific keys, transforming them into visually appealing toast notifications.
+Flash messages provide contextual feedback to users about their actions and system events. Laravolt's flash message system automatically detects validation errors and session flash messages to display elegant toast notifications.
 
 ---
 
 ## Overview
 
-Flash messages (sometimes called toast notifications) are temporary notifications that appear briefly to inform users about the result of their actions, such as successful form submission, validation errors, or important information they should be aware of. Laravolt provides a streamlined system for implementing these notifications with minimal effort.
+Flash messages (also known as toast notifications) are temporary messages that appear after user actions or system events to provide immediate feedback. They typically disappear after a few seconds or can be manually dismissed by the user.
 
-![Flash Message Example](https://cdn.statically.io/gh/laravolt/storage/master/2021/10/flash-messages-example.png)
+Laravolt provides a seamless integration with Laravel's session and validation systems to automatically display these notifications with minimal configuration.
 
-## Basic Usage
+## Installation
 
-Laravolt's flash message system is designed to work seamlessly with Laravel's built-in session and validation mechanisms. Here's how to use it:
+Flash message functionality is included by default in Laravolt. During the Laravolt installation process, the middleware `Laravolt\Middleware\DetectFlashMessage` is automatically added to the `web` middleware group in your application's `app/Http/Kernel.php` file.
 
-### Form Validation Messages
-
-When form validation fails, Laravolt automatically displays the error messages as flash notifications without requiring any additional code:
-
-```php
-// In your controller
-public function store(Request $request)
-{
-    $request->validate([
-        'start_date_project' => 'required',
-        'end_date_project' => 'required',
-        'maintenance_date' => 'required',
-    ]);
-
-    // Process form submission if validation passes
-    // ...
-}
-```
-
-The validation errors will be automatically converted to flash messages.
-
-### Session Flash Messages
-
-For general notifications across redirects, use Laravel's session flash functionality with specific message types:
-
-```php
-// In your controller
-return redirect()->to('home')->with('info', 'Welcome back');
-return redirect()->to('home')->with('success', 'Profile updated');
-return redirect()->to('home')->with('warning', 'Please complete your profile');
-return redirect()->to('home')->with('error', 'Sorry, dashboard not available right now');
-```
-
-Each message type (`info`, `success`, `warning`, `error`) has a distinctive style, making it easy for users to understand the nature of the notification.
-
-### Current Request Messages
-
-If you need to display flash messages during the current request (without redirecting), use the `session()->now()` method:
-
-```php
-public function index()
-{
-    session()->now('info', 'Welcome back');
-    session()->now('success', 'Profile updated');
-    session()->now('warning', 'Please complete your profile');
-    session()->now('error', 'Sorry, dashboard not available right now');
-
-    return view('home');
-}
-```
-
-## Installation/Setup
-
-The flash message system is automatically configured during Laravolt installation. The middleware `Laravolt\Middleware\DetectFlashMessage` is added to the `web` middleware group in `app/Http/Kernel.php`.
-
-If you're not seeing flash messages, verify that this middleware is properly registered:
+To verify that it's properly installed, check your middleware configuration:
 
 ```php
 // app/Http/Kernel.php
 protected $middlewareGroups = [
     'web' => [
-        // ...other middleware
+        // ... other middleware
         \Laravolt\Middleware\DetectFlashMessage::class,
-        // ...other middleware
+        // ... other middleware
     ],
-    // ...
 ];
 ```
 
-## Advanced Features
+## Basic Usage
 
-### Message Duration Control
+### Form Validation Messages
 
-You can control how long flash messages remain visible before automatically disappearing:
+One of the most common uses for flash messages is displaying form validation errors. Laravolt automatically detects Laravel validation errors and displays them as flash messages without requiring any additional code.
 
 ```php
-// In your .env file
-LARAVOLT_FLASH_DURATION=5000  // Duration in milliseconds (5 seconds)
+public function store(Request $request)
+{
+    // Validation errors will automatically be displayed as flash messages
+    $request->validate([
+        'name' => 'required|min:3',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    // Process the validated data...
+    User::create($request->all());
+
+    return redirect()->route('users.index');
+}
 ```
 
-### Customizing Flash Messages
+### Session Flash Messages
 
-To customize the appearance and behavior of flash messages, you can publish the related assets:
+For more explicit control, you can set flash messages directly in your controller by using Laravel's session flash methods. These messages will be displayed on the next request, making them perfect for use with redirects.
+
+```php
+public function update(Request $request, User $user)
+{
+    $user->update($request->validated());
+
+    // Flash message will be displayed after redirection
+    return redirect()
+        ->route('users.index')
+        ->with('success', 'User profile updated successfully');
+}
+```
+
+### Available Message Types
+
+Laravolt supports four types of messages, each with distinctive styling to convey different levels of information:
+
+| Type      | Purpose                         | Example                                             |
+| --------- | ------------------------------- | --------------------------------------------------- |
+| `info`    | General information             | `->with('info', 'Welcome back, John')`              |
+| `success` | Successful operations           | `->with('success', 'Profile updated successfully')` |
+| `warning` | Warnings that require attention | `->with('warning', 'Please complete your profile')` |
+| `error`   | Errors that prevented an action | `->with('error', 'Unable to connect to server')`    |
+
+## Advanced Features
+
+### Current Request Flash Messages
+
+Sometimes, you may want to display a flash message for the current request instead of waiting for the next request. You can do this using Laravel's `session()->now()` method:
+
+```php
+public function dashboard()
+{
+    // These messages will be displayed immediately
+    session()->now('info', 'Welcome to your dashboard');
+
+    if (!auth()->user()->hasCompletedProfile()) {
+        session()->now('warning', 'Please complete your profile information');
+    }
+
+    return view('dashboard');
+}
+```
+
+### Multiple Messages
+
+You can set multiple flash messages of different types, and all will be displayed:
+
+```php
+return redirect()->route('home')
+    ->with('success', 'Your settings have been saved')
+    ->with('info', 'You might want to check out our new features');
+```
+
+### HTML Content in Messages
+
+By default, flash messages support plain text only. If you need to include HTML in your messages, you'll need to customize the flash message template.
+
+## Customization
+
+### Message Duration
+
+You can modify how long flash messages stay visible before automatically dismissing by publishing and editing the Laravolt configuration:
 
 ```bash
-php artisan vendor:publish --tag=laravolt-flash
+php artisan vendor:publish --tag=laravolt-config
 ```
 
-This will copy the necessary files to your application, allowing you to modify:
+Then edit the `config/laravolt/ui.php` file:
 
-- Message templates
-- Animation effects
-- Positioning
-- Icons used for each message type
+```php
+'flash' => [
+    'display_duration' => 5000, // Duration in milliseconds
+],
+```
+
+### Message Templates
+
+To customize the appearance of flash messages, you can publish the view files:
+
+```bash
+php artisan vendor:publish --tag=laravolt-views
+```
+
+Then edit the flash message template located at `resources/views/vendor/laravolt/flash.blade.php`.
 
 ## Best Practices
 
-1. **Be Concise**: Keep flash messages short and to the point.
-2. **Use Appropriate Types**: Use the correct message type to convey the right context:
-   - `success` for successful operations
-   - `error` for failed operations or errors
-   - `warning` for cautionary messages
-   - `info` for general informational messages
-3. **Don't Overuse**: Flash messages should only be used for important notifications. Too many messages can become annoying to users.
-4. **Include Actionable Information**: When applicable, include information about what the user can or should do next.
+### Keep Messages Clear and Concise
+
+- Use simple, action-oriented language
+- Keep messages under 10 words when possible
+- Make the feedback specific to the action that was performed
+
+### Use Appropriate Message Types
+
+- `info` for general information that doesn't require action
+- `success` for confirmation of completed actions
+- `warning` for non-critical issues that might need attention
+- `error` for critical issues that prevented an action from completing
+
+### Avoid Overusing Flash Messages
+
+- Reserve flash messages for important information
+- Don't display notifications for routine actions that don't need confirmation
 
 ## Troubleshooting
 
 ### Flash Messages Not Appearing
 
-If flash messages aren't appearing when expected:
+If your flash messages aren't appearing, check the following:
 
-1. Verify the `DetectFlashMessage` middleware is registered correctly.
-2. Check your browser's console for JavaScript errors.
-3. Ensure you're using the correct session keys: `info`, `success`, `warning`, or `error`.
-4. Confirm that your application's session configuration is correct.
+1. Verify that the `DetectFlashMessage` middleware is properly registered in your `app/Http/Kernel.php` file
+2. Check that your layout template includes the flash message component:
+   ```php
+   @include('laravolt::_flash')
+   ```
+3. Inspect your browser console for any JavaScript errors that might prevent the flash messages from displaying
 
-### Messages Disappearing Too Quickly/Slowly
+### Messages Displaying Incorrectly
 
-If flash messages are disappearing too quickly or lingering too long:
+If flash messages appear but don't look right:
 
-- Adjust the `LARAVOLT_FLASH_DURATION` configuration value in your `.env` file.
+1. Ensure you're using the correct message type (`info`, `success`, `warning`, `error`)
+2. Check if you've customized the flash message template and revert to the default if needed
+3. Verify that the required CSS and JavaScript assets are being loaded
 
-## Related Components/Features
+## Related Components
 
-- [Form Validation](/v6/form) - Learn more about form handling and validation
-- [UI Components](/v6/ui-components) - Explore other Laravolt UI components
-- [Layouts](/v6/layouts) - Understand how flash messages fit into page layouts
+- [Forms](/v6/form) - Form components that integrate with validation
+- [Tables](/v6/table) - Table components with action feedback
+- [Action Buttons](/v6/action-button) - Buttons that can trigger flash messages
