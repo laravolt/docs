@@ -175,57 +175,120 @@ php artisan make:migration create_comments_table
 #### 2. Define the Topic Schema
 
 ```php
-// database/migrations/xxxx_xx_xx_create_topics_table.php
-public function up()
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
 {
-    Schema::create('topics', function (Blueprint $table) {
-        $table->ulid()->primary();
-        $table->string('name');
-        $table->string('slug')->unique();
-        $table->text('description')->nullable();
-        $table->timestamps();
-    });
-}
+    /**
+     * Run the migrations.
+     */
+    // database/migrations/xxxx_xx_xx_create_topics_table.php
+    public function up()
+    {
+        Schema::create('topics', function (Blueprint $table) {
+            $table->ulid()->primary();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('topics');
+    }
+};
+
 ```
 
 #### 3. Define the Post Schema
 
 ```php
-// database/migrations/xxxx_xx_xx_create_posts_table.php
-public function up()
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
 {
-    Schema::create('posts', function (Blueprint $table) {
-        $table->ulid()->primary();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->foreignId('topic_id')->constrained()->onDelete('cascade');
-        $table->string('title');
-        $table->string('slug')->unique();
-        $table->text('summary')->nullable();
-        $table->longText('content');
-        $table->string('featured_image')->nullable();
-        $table->timestamp('published_at')->nullable();
-        $table->timestamps();
-        $table->softDeletes();
-    });
-}
+    /**
+     * Run the migrations.
+     */
+    // database/migrations/xxxx_xx_xx_create_posts_table.php
+    public function up()
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->ulid()->primary();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('topic_id')->constrained()->onDelete('cascade');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->text('summary')->nullable();
+            $table->longText('content');
+            $table->string('featured_image')->nullable();
+            $table->timestamp('published_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('posts');
+    }
+};
+
 ```
 
 #### 4. Define the Comment Schema
 
 ```php
-// database/migrations/xxxx_xx_xx_create_comments_table.php
-public function up()
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
 {
-    Schema::create('comments', function (Blueprint $table) {
-        $table->ulid()->primary();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->foreignId('post_id')->constrained()->onDelete('cascade');
-        $table->text('content');
-        $table->boolean('is_approved')->default(false);
-        $table->timestamps();
-        $table->softDeletes();
-    });
-}
+    /**
+     * Run the migrations.
+     */
+    // database/migrations/xxxx_xx_xx_create_comments_table.php
+    public function up()
+    {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->ulid()->primary();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->text('content');
+            $table->boolean('is_approved')->default(false);
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('comments');
+    }
+};
+
 ```
 
 ### Model Implementation
@@ -241,7 +304,8 @@ php artisan make:model Comment
 #### 2. Implement the Topic Model
 
 ```php
-// app/Models/Topic.php
+<?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -262,12 +326,14 @@ class Topic extends Model
         return 'slug';
     }
 }
+
 ```
 
 #### 3. Implement the Post Model
 
 ```php
-// app/Models/Post.php
+<?php
+
 namespace App\Models;
 
 class Post extends \Illuminate\Database\Eloquent\Model
@@ -309,12 +375,14 @@ class Post extends \Illuminate\Database\Eloquent\Model
         return 'slug';
     }
 }
+
 ```
 
 #### 4. Implement the Comment Model
 
 ```php
-// app/Models/Comment.php
+<?php
+
 namespace App\Models;
 
 class Comment extends \Illuminate\Database\Eloquent\Model
@@ -341,16 +409,17 @@ class Comment extends \Illuminate\Database\Eloquent\Model
         return $this->belongsTo(Post::class);
     }
 }
+
 ```
 
 #### 5. Update the User Model
 
 ```php
-// app/Models/User.php
+<?php
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravolt\Platform\Models\User as BaseUser;
@@ -386,32 +455,8 @@ class User extends BaseUser
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function isAdmin()
-    {
-        return $this->hasRole('admin');
-    }
-
-    public function isWriter()
-    {
-        return $this->hasRole('writer');
-    }
-
-    public function isMember()
-    {
-        return $this->hasRole('member');
-    }
 }
+
 ```
 
 ### Authorization Setup

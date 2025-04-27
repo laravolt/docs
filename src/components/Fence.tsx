@@ -65,6 +65,7 @@ export function Fence({
     markdown: 'Markdown',
     md: 'Markdown',
     sql: 'SQL',
+    txt: 'Plain Text',
     // Add more languages as needed
   }
 
