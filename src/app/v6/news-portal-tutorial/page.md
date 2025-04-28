@@ -93,7 +93,7 @@ The application will implement these relationships:
 
 We'll approach this project in progressive levels, each designed to be demonstrated in a 7-minute YouTube screencast:
 
-### Level 1: Project Setup (Screencast 1)
+### Level 1: Project Setup
 
 The first screencast covers setting up the initial project:
 
@@ -102,7 +102,7 @@ The first screencast covers setting up the initial project:
 3. Set up the development environment (database, config)
 4. Overview of the project structure
 
-### Level 2: Data Structure (Screencast 2)
+### Level 2: Data Structure
 
 This screencast focuses on building the data foundation:
 
@@ -111,7 +111,7 @@ This screencast focuses on building the data foundation:
 3. Define model relationships
 4. Run migrations and verify database structure
 
-### Level 3: Authentication & Authorization (Screencast 3)
+### Level 3: Authentication & Authorization
 
 This screencast covers user management:
 
@@ -121,7 +121,7 @@ This screencast covers user management:
 4. Implement policies for Post and Comment models
 5. Create seeders for roles and permissions
 
-### Level 4: Admin Panel - Topic Management (Screencast 4)
+### Level 4: Admin Panel - Topic Management
 
 This screencast demonstrates building admin functionality:
 
@@ -131,7 +131,7 @@ This screencast demonstrates building admin functionality:
 4. Add validation rules for topic data
 5. Implement topic deletion with confirmation
 
-### Level 5: Admin Panel - Post Management (Screencast 5)
+### Level 5: Admin Panel - Post Management
 
 This screencast continues admin functionality:
 
@@ -141,7 +141,7 @@ This screencast continues admin functionality:
 4. Add post publishing workflow
 5. Set up post status management
 
-### Level 6: Admin Panel - Dashboard & Comments (Screencast 6)
+### Level 6: Admin Panel - Dashboard & Comments
 
 This screencast completes the admin features:
 
@@ -151,7 +151,7 @@ This screencast completes the admin features:
 4. Add simple analytics charts
 5. Create activity logs
 
-### Level 7: Public Website - Frontend (Screencast 7)
+### Level 7: Public Website - Frontend
 
 This screencast starts building the public site:
 
@@ -161,7 +161,7 @@ This screencast starts building the public site:
 4. Implement topic browsing pages
 5. Create article detail pages
 
-### Level 8: Public Website - Interactive Features (Screencast 8)
+### Level 8: Public Website - Interactive Features
 
 This screencast adds interactivity to the public site:
 
@@ -171,7 +171,7 @@ This screencast adds interactivity to the public site:
 4. Add topic filtering
 5. Implement pagination
 
-### Level 9: Testing & Quality Assurance (Screencast 9)
+### Level 9: Testing & Quality Assurance
 
 The final screencast focuses on ensuring quality:
 
