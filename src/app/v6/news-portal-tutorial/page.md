@@ -91,486 +91,92 @@ The application will implement these relationships:
 
 ## Development Roadmap
 
-We'll approach this project in progressive levels of complexity:
+We'll approach this project in progressive levels, each designed to be demonstrated in a 7-minute YouTube screencast:
 
-### Level 1: Core Application
+### Level 1: Project Setup (Screencast 1)
 
-The first level focuses on building the essential features to get the application running:
+The first screencast covers setting up the initial project:
 
-1. Set up the project with Laravolt
-2. Create database migrations and models
-3. Implement authentication and authorization
-4. Build CRUD operations for news management
-5. Create the public-facing website
-6. Add comment functionality
-7. Implement user profile management
-8. Create a seeder for test data
-9. Deploy to Heroku
+1. Create a new Laravel project
+2. Install and configure Laravolt
+3. Set up the development environment (database, config)
+4. Overview of the project structure
 
-### Level 2: Enhanced Features
+### Level 2: Data Structure (Screencast 2)
 
-The second level adds more sophisticated features:
+This screencast focuses on building the data foundation:
 
-1. Export functionality for news and comments
-2. Dashboard filtering by date range
-3. Writer-specific content management
-4. Email notifications for new comments
+1. Create database migrations with proper relationships
+2. Implement models with appropriate traits (HasUlids, SoftDeletes)
+3. Define model relationships
+4. Run migrations and verify database structure
 
-### Level 3: Advanced Capabilities
+### Level 3: Authentication & Authorization (Screencast 3)
 
-The third level adds administrative controls and better user experience:
+This screencast covers user management:
 
-1. Website settings management
-2. Multi-theme support
-3. Google Analytics integration
+1. Configure authentication using Laravolt
+2. Set up the ACL system with roles (Admin, Writer, Member)
+3. Create permission enums for access control
+4. Implement policies for Post and Comment models
+5. Create seeders for roles and permissions
 
-### Level 4: Production Optimization
+### Level 4: Admin Panel - Topic Management (Screencast 4)
 
-The final level focuses on performance and quality:
+This screencast demonstrates building admin functionality:
 
-1. PHPStan level 9 compliance
-2. Integration testing
-3. PageSpeed Insight optimization
+1. Implement AutoCRUD for topic management
+2. Create topic listing with sorting and filtering
+3. Build topic creation and edit forms
+4. Add validation rules for topic data
+5. Implement topic deletion with confirmation
 
-## Implementation Guide
+### Level 5: Admin Panel - Post Management (Screencast 5)
 
-Let's begin implementing our news portal application, starting with the essential features in Level 1.
+This screencast continues admin functionality:
 
-### Project Setup
-
-#### 1. Create a New Laravel Project
-
-```bash
-composer create-project laravel/laravel news-portal
-cd news-portal
-```
-
-#### 2. Install Laravolt
-
-```bash
-composer require laravolt/laravolt
-php artisan laravolt:install
-```
-
-#### 3. Set Up the Environment
-
-Configure your `.env` file with the appropriate database settings:
-
-```env
-DB_CONNECTION=sqlite
-```
-
-### Database Structure
-
-#### 1. Create Migrations
-
-First, let's create the necessary migrations for our models:
-
-```bash
-php artisan make:migration create_topics_table
-php artisan make:migration create_posts_table
-php artisan make:migration create_comments_table
-```
-
-#### 2. Define the Topic Schema
-
-```php
-<?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    // database/migrations/xxxx_xx_xx_create_topics_table.php
-    public function up()
-    {
-        Schema::create('topics', function (Blueprint $table) {
-            $table->ulid()->primary();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('topics');
-    }
-};
-
-```
-
-#### 3. Define the Post Schema
-
-```php
-<?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    // database/migrations/xxxx_xx_xx_create_posts_table.php
-    public function up()
-    {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->ulid()->primary();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('topic_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('summary')->nullable();
-            $table->longText('content');
-            $table->string('featured_image')->nullable();
-            $table->timestamp('published_at')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('posts');
-    }
-};
-
-```
-
-#### 4. Define the Comment Schema
-
-```php
-<?php
-
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    // database/migrations/xxxx_xx_xx_create_comments_table.php
-    public function up()
-    {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->ulid()->primary();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->text('content');
-            $table->boolean('is_approved')->default(false);
-            $table->timestamps();
-            $table->softDeletes();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('comments');
-    }
-};
-
-```
-
-### Model Implementation
-
-#### 1. Create Models
-
-```bash
-php artisan make:model Topic
-php artisan make:model Post
-php artisan make:model Comment
-```
-
-#### 2. Implement the Topic Model
-
-```php
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Topic extends Model
-{
-    use \Illuminate\Database\Eloquent\Concerns\HasUlids;
-
-    protected $fillable = ['name', 'slug', 'description'];
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-}
-
-```
-
-#### 3. Implement the Post Model
-
-```php
-<?php
-
-namespace App\Models;
-
-class Post extends \Illuminate\Database\Eloquent\Model
-{
-    use \Illuminate\Database\Eloquent\Concerns\HasUlids;
-
-    use \Illuminate\Database\Eloquent\SoftDeletes;
-
-    protected $fillable = [
-        'user_id', 'topic_id', 'title', 'slug', 'summary',
-        'content', 'featured_image', 'published_at'
-    ];
-
-    protected $dates = ['published_at'];
-
-    public function topic()
-    {
-        return $this->belongsTo(Topic::class);
-    }
-
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function scopePublished($query)
-    {
-        return $query->whereNotNull('published_at')
-            ->where('published_at', '<=', now());
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-}
-
-```
-
-#### 4. Implement the Comment Model
-
-```php
-<?php
-
-namespace App\Models;
-
-class Comment extends \Illuminate\Database\Eloquent\Model
-{
-    use \Illuminate\Database\Eloquent\Concerns\HasUlids;
-
-    use \Illuminate\Database\Eloquent\SoftDeletes;
-
-    protected $fillable = [
-        'user_id', 'post_id', 'content', 'is_approved'
-    ];
-
-    protected $casts = [
-        'is_approved' => 'boolean',
-    ];
-
-    public function author()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function post()
-    {
-        return $this->belongsTo(Post::class);
-    }
-}
-
-```
-
-#### 5. Update the User Model
-
-```php
-<?php
-
-namespace App\Models;
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
-use Laravolt\Platform\Models\User as BaseUser;
-use Laravolt\Suitable\AutoFilter;
-use Laravolt\Suitable\AutoSearch;
-use Laravolt\Suitable\AutoSort;
-
-class User extends BaseUser
-{
-    use AutoFilter, AutoSearch, AutoSort;
-    use HasFactory, Notifiable;
-    // use \Laravel\Sanctum\HasApiTokens;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone'];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = ['password', 'remember_token'];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-}
-
-```
-
-### Authorization Setup
-
-#### 1. Create Policies
-
-```bash
-php artisan make:policy PostPolicy --model=Post
-php artisan make:policy CommentPolicy --model=Comment
-```
-
-#### 2. Implement Post Policy
-
-```php
-// app/Policies/PostPolicy.php
-namespace App\Policies;
-
-use App\Models\Post;
-use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
-
-class PostPolicy
-{
-    use HandlesAuthorization;
-
-    public function viewAny(User $user)
-    {
-        return $user->isAdmin() || $user->isWriter();
-    }
-
-    public function view(User $user, Post $post)
-    {
-        return true; // Anyone can view published posts
-    }
-
-    public function create(User $user)
-    {
-        return $user->isAdmin() || $user->isWriter();
-    }
-
-    public function update(User $user, Post $post)
-    {
-        return $user->isAdmin() || $user->id === $post->user_id;
-    }
-
-    public function delete(User $user, Post $post)
-    {
-        return $user->isAdmin() || $user->id === $post->user_id;
-    }
-}
-```
-
-#### 3. Implement Comment Policy
-
-```php
-// app/Policies/CommentPolicy.php
-namespace App\Policies;
-
-use App\Models\Comment;
-use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
-
-class CommentPolicy
-{
-    use HandlesAuthorization;
-
-    public function viewAny(User $user)
-    {
-        return true;
-    }
-
-    public function view(User $user, Comment $comment)
-    {
-        return true;
-    }
-
-    public function create(User $user)
-    {
-        return $user->isMember() || $user->isWriter() || $user->isAdmin();
-    }
-
-    public function update(User $user, Comment $comment)
-    {
-        return $user->isAdmin() || $user->id === $comment->user_id;
-    }
-
-    public function delete(User $user, Comment $comment)
-    {
-        return $user->isAdmin() || $user->id === $comment->user_id;
-    }
-
-    public function moderate(User $user, Comment $comment)
-    {
-        return $user->isAdmin();
-    }
-}
-```
-
-## Next Steps
-
-The implementation guide above covers the initial setup of the database structure, models, and authorization policies for our news portal. In the next parts of this tutorial (which will be added soon), we'll cover:
-
-1. Setting up AutoCRUD for the admin panel
-2. Building the public-facing website with TailwindCSS
-3. Implementing the comment system
-4. Creating dashboard charts with Laravolt Chart
-5. Developing more advanced features like exporting and filtering
-6. Adding email notifications
-7. Implementing website settings and theme switching
-8. Optimizing for performance and quality
-
-## Resources
-
-- [Laravolt Documentation](/v6/overview)
-- [AutoCRUD Guide](/v6/auto-crud)
-- [Laravolt Chart](/v6/charts)
-- [TailwindCSS Documentation](https://tailwindcss.com/docs)
+1. Build post management with rich text editor
+2. Create post listing with topic filters
+3. Implement featured image uploads
+4. Add post publishing workflow
+5. Set up post status management
+
+### Level 6: Admin Panel - Dashboard & Comments (Screencast 6)
+
+This screencast completes the admin features:
+
+1. Create admin dashboard with statistics
+2. Build comment moderation system
+3. Implement user management interface
+4. Add simple analytics charts
+5. Create activity logs
+
+### Level 7: Public Website - Frontend (Screencast 7)
+
+This screencast starts building the public site:
+
+1. Set up TailwindCSS for the public site
+2. Create responsive layouts
+3. Build homepage with featured posts
+4. Implement topic browsing pages
+5. Create article detail pages
+
+### Level 8: Public Website - Interactive Features (Screencast 8)
+
+This screencast adds interactivity to the public site:
+
+1. Implement comment submission system
+2. Create user registration and profile pages
+3. Build search functionality
+4. Add topic filtering
+5. Implement pagination
+
+### Level 9: Testing & Quality Assurance (Screencast 9)
+
+The final screencast focuses on ensuring quality:
+
+1. Configure PHPStan for code quality
+2. Create integration tests for core features
+3. Write unit tests for critical components
+4. Set up CI/CD pipeline configurations
+5. Add performance optimizations
