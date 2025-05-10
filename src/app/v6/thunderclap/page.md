@@ -22,14 +22,6 @@ Building CRUD interfaces is a common but often repetitive task in web developmen
 
 Thunderclap reads your database schema and generates code according to templates that you can customize to match your project's specific requirements.
 
-## Installation
-
-Install Thunderclap via Composer:
-
-```bash
-composer require laravolt/thunderclap
-```
-
 ## Basic Usage
 
 The simplest way to use Thunderclap is with the `laravolt:clap` Artisan command:
@@ -77,16 +69,18 @@ Add the modules directory to your PSR-4 autoloading configuration in `composer.j
 
 ### 2. Register Service Provider
 
-Add the generated service provider to your `config/app.php` file. For example, if you generated code for a table named "categories":
+Add the generated service provider to your `bootstrap/providers.php` file. For example, if you generated code for a table named "categories":
 
 ```php
-'providers' => [
+<?php
+
+return [
     // Other service providers...
 
-    Modules\Category\Providers\CategoryServiceProvider::class,
+    \Modules\Video\Providers\VideoServiceProvider::class,
 
     // Application service providers...
-],
+];
 ```
 
 ### 3. Update Autoloader
