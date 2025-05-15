@@ -79,6 +79,18 @@ export function Hero() {
                   View on GitHub
                 </Button>
               </div>
+              <p className="mt-4 text-sm text-gray-500">
+                Looking for documentation for previous versions? Visit{' '}
+                <a
+                  href="https://old.laravolt.dev/docs/v5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  old.laravolt.dev ↗
+                </a>{' '}
+                for legacy docs.
+              </p>
             </div>
           </div>
           <div className="relative lg:static xl:pl-10">
