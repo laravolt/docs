@@ -82,7 +82,7 @@ export function Hero() {
               <p className="mt-4 text-sm text-gray-500">
                 Looking for documentation for previous versions? Visit{' '}
                 <a
-                  href="https://old.laravolt.dev/docs/v5"
+                  href="https://old.laravolt.dev/docs/v5/introduction"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"
