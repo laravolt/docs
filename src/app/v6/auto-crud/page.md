@@ -309,6 +309,32 @@ To add validation, simply add "rules":
 'rules' => ['required', 'size:10'],
 ```
 
+#### Using Rule Objects
+
+You can also use Laravel's Rule objects for more complex validation:
+
+```php
+'rules' => ['required', \Illuminate\Validation\Rule::unique('users', 'name')],
+```
+
+However, when using Rule objects in configuration files, be aware of potential serialization issues when running `php artisan config:cache`. Laravel's `Rule` objects are not directly serializable. To avoid this issue, you have two options:
+
+1. **Use string representation** (Recommended for config files):
+
+   ```php
+   'rules' => ['required', 'unique:users,name'],
+   ```
+
+2. **Use Rule objects** (Available but requires proper handling):
+
+   ```php
+   'rules' => ['required', \Illuminate\Validation\Rule::unique('users', 'name')],
+   ```
+
+   If you choose to use Rule objects, ensure your application correctly handles the serialization process or avoid using `config:cache`.
+
+For comprehensive validation examples, see the [Advanced Configuration](#advanced-configuration-considerations) section.
+
 [All validations available in Laravel](https://laravel.com/docs/master/validation#available-validation-rules) can be applied here.
 
 ## Field Types (Schema)
@@ -574,3 +600,196 @@ http://localhost/resource/user/create?name=John
 ```
 
 When the user create page is opened for the first time, the `name` field will automatically be filled with the value "John".
+
+## Advanced Configuration Considerations
+
+### Serialization of Configuration Files
+
+When running `php artisan config:cache` in Laravel, all configuration files are serialized into a single cached file. This can cause issues with certain object types that are not serializable, such as validation `Rule` objects.
+
+#### Error Symptoms
+
+If you're using Rule objects in your config files, you might encounter this error when running `php artisan config:cache` or `php artisan optimize`:
+
+```
+LogicException: Your configuration files are not serializable.
+
+Error::("Call to undefined method Illuminate\Validation\Rules\Unique::__set_state()")
+```
+
+#### Handling Non-Serializable Rule Objects
+
+To resolve the serialization issue, consider these solutions:
+
+1. **Use string representation for validation rules (Simplest approach):**
+
+   ```php
+   // Instead of:
+   'rules' => ['required', \Illuminate\Validation\Rule::unique('users', 'name')],
+
+   // Use:
+   'rules' => ['required', 'unique:users,name'],
+   ```
+
+   This is the most straightforward solution and works in all cases.
+
+2. **Create a custom service provider that converts Rule objects to strings:**
+
+   ```php
+   <?php
+
+   namespace App\Providers;
+
+   use Illuminate\Support\ServiceProvider;
+   use Illuminate\Validation\Rules\Unique;
+
+   class AutoCrudRuleSerializationProvider extends ServiceProvider
+   {
+       public function boot()
+       {
+           if (!$this->app->configurationIsCached()) {
+               $this->processAutoCrudResources();
+           }
+       }
+
+       protected function processAutoCrudResources(): void
+       {
+           $resources = config('laravolt.auto-crud-resources', []);
+           if (empty($resources)) {
+               return;
+           }
+
+           $processed = [];
+           foreach ($resources as $key => $resource) {
+               $processed[$key] = $this->processResource($resource);
+           }
+
+           // Update the config repository with the processed resources
+           config(['laravolt.auto-crud-resources' => $processed]);
+       }
+
+       protected function processResource(array $resource): array
+       {
+           if (!isset($resource['schema']) || !is_array($resource['schema'])) {
+               return $resource;
+           }
+
+           foreach ($resource['schema'] as $index => $field) {
+               if (isset($field['rules']) && is_array($field['rules'])) {
+                   $resource['schema'][$index]['rules'] = $this->processRules($field['rules']);
+               }
+           }
+
+           return $resource;
+       }
+
+       protected function processRules(array $rules): array
+       {
+           return array_map(function ($rule) {
+               if (is_array($rule)) {
+                   return $this->processRules($rule);
+               }
+
+               if ($rule instanceof Unique) {
+                   // Convert Unique rule to string format
+                   return $this->uniqueRuleToString($rule);
+               }
+
+               return $rule;
+           }, $rules);
+       }
+
+       protected function uniqueRuleToString(Unique $rule): string
+       {
+           // Extract table and column using reflection
+           $table = $this->extractProperty($rule, 'table', 'unknown_table');
+           $column = $this->extractProperty($rule, 'column', 'NULL');
+
+           return "unique:{$table},{$column}";
+       }
+
+       protected function extractProperty($object, $property, $default = null)
+       {
+           try {
+               $reflector = new \ReflectionClass($object);
+               $prop = $reflector->getProperty($property);
+               $prop->setAccessible(true);
+               $value = $prop->getValue($object);
+               return $value ?: $default;
+           } catch (\Exception $e) {
+               return $default;
+           }
+       }
+
+           config(['laravolt.auto-crud-resources' => $processed]);
+       }
+
+       // Additional helper methods...
+   }
+   ```
+
+   Then register this provider in your `config/app.php` or `bootstrap/providers.php` file.
+
+#### Best Practices Summary
+
+For optimal experience with Auto CRUD validation rules and Laravel's config cache:
+
+1. **In development environments:**
+
+   - You can use Rule objects directly for better IDE support and type safety
+   - Avoid running `php artisan config:cache` or disable it with `php artisan config:clear`
+
+2. **In production environments:**
+
+   - Use string-based validation rules in your configuration files
+   - Or implement a rule serialization service provider as shown above
+   - Always test your `php artisan optimize` command before deploying
+
+3. **For rule objects with special features:**
+   When you need features like `ignore()` for unique rules during updates, create a helper class that converts string rules back to Rule objects at runtime:
+
+   ```php
+   <?php
+
+   namespace App\Support;
+
+   use Illuminate\Support\Str;
+   use Illuminate\Validation\Rule;
+
+   class RuleHelper
+   {
+       /**
+        * Convert rule strings back to Rule objects during runtime validation.
+        */
+       public static function resolveRules(array $rules): array
+       {
+           return array_map(function($rule) {
+               if (is_array($rule)) {
+                   return self::resolveRules($rule);
+               }
+
+               if (!is_string($rule)) {
+                   return $rule;
+               }
+
+               // Convert unique:table,column back to Rule::unique() object
+               if (Str::startsWith($rule, 'unique:')) {
+                   $parts = explode(':', $rule, 2);
+                   if (isset($parts[1])) {
+                       $params = explode(',', $parts[1]);
+                       $table = $params[0] ?? null;
+                       $column = $params[1] ?? null;
+
+                       if ($table) {
+                           return Rule::unique($table, $column);
+                       }
+                   }
+               }
+
+               return $rule;
+           }, $rules);
+       }
+   }
+   ```
+
+This approach gives you the best of both worlds: serializable configurations and the full power of Laravel's validation Rule objects when needed.
