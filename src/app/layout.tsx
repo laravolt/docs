@@ -41,6 +41,9 @@ export default function RootLayout({
       className={clsx('h-full antialiased', inter.variable, lexend.variable)}
       suppressHydrationWarning
     >
+      <head>
+        <meta name="google-site-verification" content="6W7AXzId1Zd95gZHeDE9r9sI0661c3n070NikYvs6lU" />
+      </head>
       <body className="flex min-h-full bg-white dark:bg-slate-900">
         <Providers>
           <Layout>{children}</Layout>
