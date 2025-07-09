@@ -611,7 +611,7 @@ When running `php artisan config:cache` in Laravel, all configuration files are 
 
 If you're using Rule objects in your config files, you might encounter this error when running `php artisan config:cache` or `php artisan optimize`:
 
-```
+```bash
 LogicException: Your configuration files are not serializable.
 
 Error::("Call to undefined method Illuminate\Validation\Rules\Unique::__set_state()")
