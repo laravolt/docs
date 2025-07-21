@@ -46,7 +46,7 @@ function Header() {
       <div className="mr-6 flex lg:hidden">
         <MobileNavigation />
       </div>
-      <div className="relative flex grow basis-0 items-center">
+      <div className="relative flex grow basis-0 items-center space-x-3 sm:space-x-4">
         <Link href="/" aria-label="Home page">
           <Logomark className="h-9 w-9 lg:hidden" />
           <Logo className="hidden h-9 w-auto fill-slate-700 lg:block dark:fill-sky-100" />

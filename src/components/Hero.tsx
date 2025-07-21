@@ -5,6 +5,7 @@ import { Highlight } from 'prism-react-renderer'
 
 import { Button } from '@/components/Button'
 import { HeroBackground } from '@/components/HeroBackground'
+import { HeroSponsorLogo } from '@/components/Logo'
 import blurCyanImage from '@/images/blur-cyan.png'
 import blurIndigoImage from '@/images/blur-indigo.png'
 
@@ -91,6 +92,9 @@ export function Hero() {
                 </a>{' '}
                 for legacy docs.
               </p>
+              <div className="mt-6 flex md:justify-center lg:justify-start">
+                <HeroSponsorLogo />
+              </div>
             </div>
           </div>
           <div className="relative lg:static xl:pl-10">
