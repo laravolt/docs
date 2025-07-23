@@ -151,10 +151,10 @@ php artisan laravolt:install
 
 ### 3. Migrate the Database
 
-Next, don't forget to run the migrations:
+Next, don't forget to run the migrations (fresh, because Laravel installation auto migrate itself):
 
 ```bash
-php artisan migrate
+php artisan migrate:fresh
 ```
 
 ### 4. Add an Admin User
