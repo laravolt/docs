@@ -92,7 +92,6 @@ Ready to start building with Laravolt? Check out the following resources:
 Join the Laravolt community to connect with other developers, get help with your projects, and contribute to the platform:
 
 - [GitHub Repository](https://github.com/laravolt/laravolt) - Report issues and contribute code
-- [Telegram Group](https://t.me/laravolt) - Connect with the community
 - [Official Website](https://laravolt.dev) - Latest news and announcements
 
 Are you ready to become part of this change?
