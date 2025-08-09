@@ -11,6 +11,7 @@ import {
   useState,
 } from 'react'
 import Highlighter from 'react-highlight-words'
+const ReactHighlighter: any = Highlighter as any
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   type AutocompleteApi,
@@ -139,7 +140,7 @@ function LoadingIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function HighlightQuery({ text, query }: { text: string; query: string }) {
   return (
-    <Highlighter
+    <ReactHighlighter
       highlightClassName="group-aria-selected:underline bg-transparent text-sky-600 dark:text-sky-400"
       searchWords={[query]}
       autoEscape={true}

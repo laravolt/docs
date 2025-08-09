@@ -9,3 +9,8 @@ declare module '@/markdoc/search.mjs' {
 
   export function search(query: string, options?: SearchOptions): Array<Result>
 }
+
+declare module 'js-yaml' {
+  const content: any
+  export default content
+}

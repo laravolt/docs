@@ -58,6 +58,13 @@ function Header() {
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:grow">
         <ThemeSelector className="relative z-10" />
         <Link
+          href="/blog"
+          className="hidden text-sm font-semibold text-slate-700 hover:text-slate-900 sm:block dark:text-slate-100 dark:hover:text-white"
+          aria-label="Blog"
+        >
+          Blog
+        </Link>
+        <Link
           href="https://github.com/laravolt/laravolt"
           className="group"
           aria-label="GitHub"

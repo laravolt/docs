@@ -14,11 +14,14 @@ const nodes = {
     transform(node, config) {
       documentSlugifyMap.set(config, slugifyWithCounter())
 
+      const frontmatter = yaml.load(node.attributes.frontmatter)
+
       return new Tag(
         this.render,
         {
-          frontmatter: yaml.load(node.attributes.frontmatter),
+          frontmatter,
           nodes: node.children,
+          layout: frontmatter?.layout ?? 'docs',
         },
         node.transformChildren(config),
       )
