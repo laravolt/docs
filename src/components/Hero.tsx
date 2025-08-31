@@ -81,16 +81,16 @@ export function Hero() {
                 </Button>
               </div>
               <p className="mt-4 text-sm text-gray-500">
-                Looking for documentation for previous versions? Visit{' '}
+                Looking for documentation for previous versions?{' '}<br />
+                Visit{' '}
                 <a
-                  href="https://old.laravolt.dev/docs/v5/introduction"
+                  href="https://github.com/laravolt/laravolt.github.io"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"
                 >
-                  old.laravolt.dev ↗
-                </a>{' '}
-                for legacy docs.
+                  repository of legacy docs (before v6) ↗
+                </a>
               </p>
               <div className="mt-6 flex md:justify-center lg:justify-start">
                 <HeroSponsorLogo />

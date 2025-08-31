@@ -8,13 +8,9 @@ Laravolt is a **digital empowerment platform** that combines technical framework
 
 {% quick-links %}
 
-{% quick-link title="Installation" icon="installation" href="/v6/installation" description="Get started with Laravolt in your Laravel project with our simple step-by-step installation guide." /%}
+{% quick-link title="Installation" icon="installation" href="/v7/installation" description="Get started with Laravolt in your Laravel project with our simple step-by-step installation guide." /%}
 
-{% quick-link title="UI Components" icon="presets" href="/v6/form" description="Explore our collection of UI components to quickly build beautiful, functional interfaces." /%}
-
-{% quick-link title="Workflow" icon="plugins" href="/v6/workflow" description="Learn how to implement complex business processes using our workflow system with Camunda integration." /%}
-
-{% quick-link title="ACL & Security" icon="theming" href="/v6/acl" description="Implement robust access control and security in your application." /%}
+{% quick-link title="Thunderclap" icon="presets" href="/v7/thunderclap" description="Generate Laravel CRUD code automatically from your database with customizable templates." /%}
 
 {% /quick-links %}
 
@@ -36,9 +32,7 @@ More than that, Laravolt is:
 
 Laravolt provides tools to speed up your development process:
 
-- **Auto CRUD**: Generate CRUD interfaces from configuration files without writing any code
-- **Form Builder**: Create complex forms easily with a simple, intuitive API
-- **Table Component**: Display data in tabular format with built-in searching, sorting, and filtering
+- **Thunderclap**: Generate boilerplate code for new features with ease
 
 ### Enterprise-Ready Components
 
@@ -50,11 +44,13 @@ Built for real-world applications:
 
 ### Beautiful UI
 
-A collection of ready-to-use UI components that follow [Fomantic UI](https://fomantic-ui.com) design guidelines:
+A comprehensive set of ready-to-use UI components, built with [Preline UI](https://preline.co) and Tailwind CSS:
 
-- Responsive layouts
-- Consistent styling
-- Accessibility-focused
+- 640+ responsive, mobile-first components and examples
+- Consistent, modern styling with universal framework compatibility
+- Accessibility-focused and dark mode ready
+- Free templates and Figma design system included
+- Easily customizable for any project
 
 ---
 
@@ -65,7 +61,7 @@ A collection of ready-to-use UI components that follow [Fomantic UI](https://fom
 Get up and running with Laravolt in just a few minutes:
 
 ```bash
-composer require laravolt/laravolt
+composer require laravolt/laravolt:7.x-dev
 ```
 
 Run installation command:
@@ -79,7 +75,7 @@ After installation, run migrations and create your first admin user:
 ```bash
 php artisan migrate
 
-php artisan laravolt:admin
+php artisan laravolt:admin admin admin@laravolt.dev secret
 ```
 
 ### Documentation Structure
@@ -97,4 +93,3 @@ Join our community and get help with your Laravolt projects:
 
 - [GitHub Repository](https://github.com/laravolt/laravolt)
 - [Discussion Forum](https://github.com/laravolt/laravolt/discussions)
-- [Contribution Guidelines](https://github.com/laravolt/laravolt/blob/master/CONTRIBUTING.md)
