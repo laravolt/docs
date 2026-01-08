@@ -5,6 +5,7 @@ export const navigation = [
       { title: 'Getting started', href: '/' },
       { title: 'Overview', href: '/v7/overview' },
       { title: 'Installation', href: '/v7/installation' },
+      { title: 'Thunderclap', href: '/v7/thunderclap' },
       // { title: 'Hello World', href: '/v7/hello-world' },
       // { title: 'Starter Kit', href: '/v7/starter-kit' },
     ],
