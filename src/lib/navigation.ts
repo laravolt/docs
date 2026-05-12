@@ -1,8 +1,41 @@
 export const navigation = [
   {
-    title: 'Introduction',
+    title: 'Laravolt v7',
     links: [
-      { title: 'Getting started', href: '/' },
+      { title: 'Overview', href: '/' },
+      { title: 'Introduction', href: '/v7/introduction' },
+    ],
+  },
+  {
+    title: 'Getting started',
+    links: [
+      { title: 'Installation', href: '/v7/getting-started/installation' },
+    ],
+  },
+  {
+    title: 'Core concepts',
+    links: [
+      {
+        title: 'AI-ready platform',
+        href: '/v7/core-concepts/ai-ready-platform',
+      },
+    ],
+  },
+  {
+    title: 'Forms',
+    links: [
+      { title: 'Overview', href: '/v7/forms/overview' },
+      { title: 'Validation', href: '/v7/forms/validation' },
+      { title: 'Input masking', href: '/v7/forms/input-masking' },
+    ],
+  },
+  {
+    title: 'Upgrade',
+    links: [{ title: 'Upgrade guide', href: '/v7/upgrade-guide' }],
+  },
+  {
+    title: 'v6 (legacy) · Introduction',
+    links: [
       { title: 'Overview', href: '/v6/overview' },
       { title: 'Installation', href: '/v6/installation' },
       { title: 'Hello World', href: '/v6/hello-world' },
@@ -10,7 +43,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'Core Components',
+    title: 'v6 · Core components',
     links: [
       { title: 'Form', href: '/v6/form' },
       { title: 'Table', href: '/v6/table' },
@@ -20,7 +53,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'UI Components',
+    title: 'v6 · UI components',
     links: [
       { title: 'Blade Components', href: '/v6/blade-components' },
       { title: 'Statistics', href: '/v6/statistics' },
@@ -28,7 +61,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'Development Practices',
+    title: 'v6 · Development practices',
     links: [
       { title: 'Routes', href: '/v6/routes' },
       { title: 'Controller Best Practices', href: '/v6/controller' },
@@ -38,7 +71,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'Advanced Features',
+    title: 'v6 · Advanced features',
     links: [
       { title: 'Auto CRUD', href: '/v6/auto-crud' },
       { title: 'Workflow', href: '/v6/workflow' },
@@ -48,14 +81,14 @@ export const navigation = [
     ],
   },
   {
-    title: 'Tutorials',
+    title: 'v6 · Tutorials',
     links: [
       { title: 'News Portal Tutorial', href: '/v6/news-portal-tutorial' },
       { title: 'Creating Authorized Menu', href: '/v6/authorized-menu' },
     ],
   },
   {
-    title: 'Development Guidelines',
+    title: 'v6 · Development guidelines',
     links: [
       { title: 'Code Quality', href: '/v6/code-quality' },
       { title: 'Git Guidelines', href: '/v6/git-guidelines' },
