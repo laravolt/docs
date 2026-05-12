@@ -2,11 +2,12 @@
 
 import { usePathname } from 'next/navigation'
 
-import { navigation } from '@/lib/navigation'
+import { getVersionForPath } from '@/lib/navigation'
 
 export function DocsHeader({ title }: { title?: string }) {
   let pathname = usePathname()
-  let section = navigation.find((section) =>
+  let activeVersion = getVersionForPath(pathname)
+  let section = activeVersion.navigation.find((section) =>
     section.links.find((link) => link.href === pathname),
   )
 

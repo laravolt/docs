@@ -1,6 +1,21 @@
-export const navigation = [
+export type NavLink = { title: string; href: string }
+export type NavSection = { title: string; links: NavLink[] }
+export type VersionId = 'v7' | 'v6'
+
+export type Version = {
+  id: VersionId
+  label: string
+  description: string
+  /** Landing URL users should see when they switch to this version. */
+  homeHref: string
+  /** URL prefix that identifies pages belonging to this version. */
+  pathPrefix: string
+  navigation: NavSection[]
+}
+
+export const v7Navigation: NavSection[] = [
   {
-    title: 'Laravolt v7',
+    title: 'Introduction',
     links: [
       { title: 'Overview', href: '/' },
       { title: 'Introduction', href: '/v7/introduction' },
@@ -39,8 +54,11 @@ export const navigation = [
       { title: 'llms.txt & Copy Markdown', href: '/v7/reference/llms-txt' },
     ],
   },
+]
+
+export const v6Navigation: NavSection[] = [
   {
-    title: 'v6 (legacy) · Introduction',
+    title: 'Introduction',
     links: [
       { title: 'Overview', href: '/v6/overview' },
       { title: 'Installation', href: '/v6/installation' },
@@ -49,7 +67,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'v6 · Core components',
+    title: 'Core components',
     links: [
       { title: 'Form', href: '/v6/form' },
       { title: 'Table', href: '/v6/table' },
@@ -59,7 +77,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'v6 · UI components',
+    title: 'UI components',
     links: [
       { title: 'Blade Components', href: '/v6/blade-components' },
       { title: 'Statistics', href: '/v6/statistics' },
@@ -67,7 +85,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'v6 · Development practices',
+    title: 'Development practices',
     links: [
       { title: 'Routes', href: '/v6/routes' },
       { title: 'Controller Best Practices', href: '/v6/controller' },
@@ -77,7 +95,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'v6 · Advanced features',
+    title: 'Advanced features',
     links: [
       { title: 'Auto CRUD', href: '/v6/auto-crud' },
       { title: 'Workflow', href: '/v6/workflow' },
@@ -87,17 +105,56 @@ export const navigation = [
     ],
   },
   {
-    title: 'v6 · Tutorials',
+    title: 'Tutorials',
     links: [
       { title: 'News Portal Tutorial', href: '/v6/news-portal-tutorial' },
       { title: 'Creating Authorized Menu', href: '/v6/authorized-menu' },
     ],
   },
   {
-    title: 'v6 · Development guidelines',
+    title: 'Development guidelines',
     links: [
       { title: 'Code Quality', href: '/v6/code-quality' },
       { title: 'Git Guidelines', href: '/v6/git-guidelines' },
     ],
   },
 ]
+
+export const versions: Version[] = [
+  {
+    id: 'v7',
+    label: 'v7',
+    description: 'Current',
+    homeHref: '/',
+    pathPrefix: '/v7',
+    navigation: v7Navigation,
+  },
+  {
+    id: 'v6',
+    label: 'v6',
+    description: 'Legacy',
+    homeHref: '/v6/overview',
+    pathPrefix: '/v6',
+    navigation: v6Navigation,
+  },
+]
+
+/**
+ * Find the version a given pathname belongs to.
+ *
+ * Defaults to v7 so the landing page (`/`) and any new top-level routes
+ * surface the current documentation.
+ */
+export function getVersionForPath(pathname: string | null | undefined): Version {
+  if (pathname && pathname.startsWith('/v6')) return versions[1]
+  return versions[0]
+}
+
+/**
+ * Union of every version's navigation. Use this for global lookups that
+ * should work regardless of the active version (for example, search result
+ * section titles).
+ */
+export const navigation: NavSection[] = versions.flatMap(
+  (version) => version.navigation,
+)
