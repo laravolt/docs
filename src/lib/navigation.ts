@@ -34,6 +34,12 @@ export const navigation = [
     links: [{ title: 'Upgrade guide', href: '/v7/upgrade-guide' }],
   },
   {
+    title: 'Reference',
+    links: [
+      { title: 'llms.txt & Copy Markdown', href: '/v7/reference/llms-txt' },
+    ],
+  },
+  {
     title: 'v6 (legacy) · Introduction',
     links: [
       { title: 'Overview', href: '/v6/overview' },
