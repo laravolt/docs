@@ -37,3 +37,10 @@ next-env.d.ts
 # docs old and ref
 /docs-old
 /docs-ref
+
+# LLM-friendly generated artifacts (rebuilt by scripts/generate-llms.mjs)
+/public/llms.txt
+/public/llms-full.txt
+/public/index.md
+/public/v6/**/*.md
+/public/v7/**/*.md
