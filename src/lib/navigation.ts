@@ -37,11 +37,31 @@ export const v7Navigation: NavSection[] = [
     ],
   },
   {
+    title: 'UI foundation',
+    links: [{ title: 'Overview', href: '/v7/ui-foundation/overview' }],
+  },
+  {
     title: 'Forms',
     links: [
       { title: 'Overview', href: '/v7/forms/overview' },
       { title: 'Validation', href: '/v7/forms/validation' },
       { title: 'Input masking', href: '/v7/forms/input-masking' },
+    ],
+  },
+  {
+    title: 'Admin workflows',
+    links: [{ title: 'Overview', href: '/v7/admin-workflows/overview' }],
+  },
+  {
+    title: 'Security',
+    links: [
+      { title: 'Access control', href: '/v7/security/access-control' },
+    ],
+  },
+  {
+    title: 'Testing',
+    links: [
+      { title: 'Browser testing', href: '/v7/testing/browser-testing' },
     ],
   },
   {
