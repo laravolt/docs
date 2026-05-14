@@ -63,6 +63,10 @@ export const v7Navigation: NavSection[] = [
         title: 'Overview',
         href: '/v7/workflow-and-automation/overview',
       },
+      {
+        title: 'MVP demo validation',
+        href: '/v7/workflow-and-automation/mvp-demo-validation',
+      },
     ],
   },
   {
