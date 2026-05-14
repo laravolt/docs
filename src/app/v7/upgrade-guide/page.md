@@ -10,29 +10,29 @@ Laravolt v7 is a minor-to-major jump in the underlying stack. Most application c
 
 | | Laravolt 6.x | Laravolt 7.x |
 | --- | --- | --- |
-| PHP | 8.2 – 8.4 | 8.2 – 8.4 |
-| Laravel framework | 11.x, 12.x | 12.x, 13.x |
+| PHP | 8.2 – 8.4 | 8.2+ |
+| Laravel framework components | 11.x, 12.x | 11.x, 12.x, 13.x |
 | Livewire | 3.x | 4.x |
-| UI toolkit | Preline UI 2 (Tailwind CSS) — migrating off Fomantic/Semantic UI | Preline UI 2 (Tailwind CSS) as the default |
+| UI toolkit | Preline UI/Tailwind CSS — migrating off Fomantic/Semantic UI | Preline UI assets `4.1.2` + Tailwind CSS as the default |
 | Form builder | `laravolt/semantic-form` (`Form` facade) | `laravolt/preline-form` (`PrelineForm` facade) |
 | Testing | PHPUnit / Pest 3 | Pest 4 (`pestphp/pest: ^4.0`) |
 
-{% callout title="TODO: verify release ranges" %}
-The matrix reflects the versions declared in the Laravolt repository (`composer.json`, `README.md`) at the time of writing. Re-confirm before the public v7 release and update this page if anything shifts.
+{% callout title="Release note" %}
+The matrix reflects the versions declared in the Laravolt repository at the time of writing. Re-confirm package constraints before tagging a public v7 release.
 {% /callout %}
 
 ## Breaking changes at a glance
 
 1. **Form facade renamed.** `Form::` → `PrelineForm::`. The helper `form()` still exists and now returns the PrelineForm builder. See [Forms overview](/v7/forms/overview).
 2. **Default UI is Preline UI + Tailwind CSS.** Fomantic/Semantic UI classes are deprecated. Custom classes added to fields must be migrated to Tailwind equivalents.
-3. **Laravel framework floor raised to 12.0.** Laravel 11 is no longer supported.
+3. **Laravel components remain compatible with `^11|^12|^13`.** Test your application against the exact Laravel version you deploy.
 4. **Livewire 4.** Livewire 3 components may need minor adjustments; see the Livewire 4 upgrade notes.
 5. **PHPUnit/Pest.** Tests are expected to run under Pest 4. Plain PHPUnit tests still work.
 6. **Client-side validation hook added.** Forms using `->validate()` now emit HTML validation attributes and `data-validation-rules` automatically. Existing forms are unaffected unless they relied on the absence of those attributes.
 
 ## Recommended upgrade order
 
-1. Upgrade Laravel first (11 → 12, or confirm 12 already). Follow the [Laravel upgrade guide](https://laravel.com/docs/upgrade).
+1. Confirm your Laravel version and follow the [Laravel upgrade guide](https://laravel.com/docs/upgrade) if you are moving framework versions.
 2. Upgrade Livewire (3 → 4). Follow the Livewire upgrade notes. Livewire 4 is largely backwards compatible but tightened some lifecycle behaviour.
 3. Upgrade PHP to 8.2+ if you are not already there.
 4. Run `composer require laravolt/laravolt:^7.0`.
@@ -82,17 +82,17 @@ class CustomText extends \Laravolt\PrelineForm\Elements\Text { /* ... */ }
 
 ## Migrating Blade components
 
-If you used `laravolt/ui` Blade components in v6, continue using the same component names under v7. Several internal templates moved from Fomantic/Semantic UI to Preline UI. Custom Blade published in your application should be reviewed and re-rendered against Preline UI patterns.
+If you used `laravolt/ui` Blade components in v6, many component names continue to work under v7. Several internal templates moved from Fomantic/Semantic UI to Preline UI, so custom Blade published in your application should be reviewed and re-rendered against Preline UI patterns.
 
-TODO: verify the full list of renamed or removed `<x-volt-*>` components between v6 and v7 before the release.
+Current v7 views expose `<x-volt-*>` components such as app layout, buttons, alerts, panels, tables, charts, datepicker, file upload, notification, titlebar, steps, timeline, tree view, and workflow diagram button. Re-render custom published Blade views because internal markup moved to Preline/Tailwind patterns.
 
 ## Migrating tables, menus, workflows
 
-The public APIs for tables (Suitable), menus, actions, ACL, and Workflow are broadly the same in v7. Concrete differences are being finalised and will land here before the release:
+The public APIs for tables (Suitable), menus, actions, ACL, and Workflow are broadly the same in v7:
 
-- **Suitable (tables)** — `TODO: verify v7 Suitable entry points and any renamed column helpers`.
-- **Menus** — `TODO: verify v7 menu registration API`.
-- **Workflow** — `TODO: verify v7 workflow module entry points`.
+- **Suitable (tables)** — use the Suitable facade/builder or generated table classes from `php artisan make:table`.
+- **Menus** — register callbacks with `app('laravolt.menu.builder')->register(...)` or load config arrays under `config/laravolt/menu/*`.
+- **Workflow** — start processes with `WorkflowService::start()` and complete tasks with `WorkflowService::submitTask()`.
 
 ## Migrating tests
 
@@ -114,7 +114,7 @@ php artisan laravolt:install
 git diff config/
 ```
 
-TODO: list newly introduced config keys once the v7 release is frozen.
+Published configuration includes platform/UI/menu files plus package configs such as `auto-crud`, `asset`, `database-monitor`, `file-manager`, `lookup`, `mailkeeper`, `media`, `suitable`, `thunderclap`, and `workflow`. Review the generated diff after every publish.
 
 ## Post-upgrade checklist
 
@@ -135,17 +135,16 @@ If the upgrade goes sideways:
 2. Roll back configuration changes published by `laravolt:install`.
 3. Restore the previous Livewire/Laravel versions if you bumped them.
 
-Because v7 does not change Laravolt's core database schema, database migrations are usually the safest part of the upgrade. Verify with your own migration diff before assuming this holds.
+Because v7 focuses on package, UI, and integration changes, many applications will not need large data migrations beyond package-published migrations. Verify this with your own migration diff before assuming it holds for your project.
 
-## Open questions
+## Verify before release
 
-These items are tracked for follow-up before the final v7 release:
+These items should still be rechecked before tagging `v7.0.0`:
 
-- Exact list of breaking changes in `<x-volt-*>` Blade components — TODO.
-- v7 Suitable table builder signatures — TODO.
-- v7 Menu registration API — TODO.
-- v7 Workflow public API — TODO.
-- Verified Tailwind CSS version shipped by the starter kit — TODO.
+- Packagist package constraints match the repository constraints.
+- Starter kit frontend dependencies match the Tailwind/Preline guidance.
+- Published config diffs are reviewed on a fresh application.
+- Existing apps with published Blade views are manually smoke-tested.
 
 ## What to read next
 

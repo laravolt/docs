@@ -74,11 +74,7 @@ A list page should answer three questions quickly:
 </x-volt-app>
 ```
 
-Use table components for search, filtering, sorting, pagination, and row actions. Keep database query decisions inside the table class so the Blade view remains readable.
-
-{% callout title="TODO: verify table API" type="warning" %}
-Laravolt v7 still needs a dedicated Suitable/table reference page. Until that exists, keep table examples high-level and verify concrete class names against the final v7 codebase.
-{% /callout %}
+Use table components for search, filtering, sorting, pagination, and row actions. Keep database query decisions inside the table class so the Blade view remains readable. See [Tables and listings](/v7/ui-foundation/tables) for the current table patterns and command reference.
 
 ## Create and edit screens
 
@@ -170,7 +166,7 @@ A useful prompt:
 Add a Laravolt v7 admin workflow for PurchaseOrder.
 Create index/create/edit screens, FormRequests, policy methods, sidebar menu entry,
 and a table with search by number and supplier.
-Use PrelineForm for forms. Do not invent package APIs; mark TODO where unsure.
+Use PrelineForm for forms. Use Suitable for the listing. Do not invent package APIs; mark any uncertain app-specific behavior for review.
 ```
 
 ## What to read next

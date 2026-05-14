@@ -63,7 +63,7 @@ public function store(StoreProductRequest $request)
 {
     $product = Product::create($request->validated());
 
-    return to_route('products.show', $product)->withFlash('Product created.');
+    return to_route('products.show', $product)->with('success', 'Product created.');
 }
 ```
 

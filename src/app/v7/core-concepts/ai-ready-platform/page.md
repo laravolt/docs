@@ -41,10 +41,10 @@ A new developer — or a coding agent — should be able to answer these questio
 | Question | Where to look |
 | --- | --- |
 | Where is a form defined? | Blade view using `PrelineForm::...`, validated by an `app/Http/Requests/*` class |
-| Where is a list/table defined? | Suitable table class or controller using Suitable's builder &nbsp; _TODO: verify Suitable v7 entry points_ |
+| Where is a list/table defined? | Suitable builder/table class, often generated with `php artisan make:table` |
 | Where are permissions checked? | Laravel policies, `@can` directives, or Laravolt ACL helpers |
-| Where does a menu item live? | Menu registration callback &nbsp; _TODO: verify v7 menu registration API_ |
-| Where does a workflow run? | Workflow module &nbsp; _TODO: verify v7 workflow entry points_ |
+| Where does a menu item live? | `app('laravolt.menu.builder')->register(...)` or `config/laravolt/menu/*` |
+| Where does a workflow run? | Workflow module using `WorkflowService::start()` / `submitTask()` |
 
 Every Laravolt convention tries to collapse "it depends" into "it lives here".
 
@@ -107,14 +107,14 @@ Laravolt is AI-ready, not AI-autonomous. Always keep the following in place:
 
 Documentation, policies, tests, and conventions are the guardrails. AI is the accelerator.
 
-## Open questions
+## Verified extension points
 
-Some conventions are still being finalised for the June v7 release. This page will be updated as they land:
+The current codebase exposes practical extension points for the most common generated work:
 
-- **Menu registration API** — `TODO: verify v7 menu registration entry point`.
-- **Suitable builder entry points** — `TODO: verify v7 Suitable facade/macros`.
-- **Workflow public API** — `TODO: verify v7 workflow builder`.
-- **AI assistant recipes** — prompts and patterns for common Laravolt tasks are planned for a later section.
+- menu registration through `app('laravolt.menu.builder')->register(...)` and config arrays under `config/laravolt/menu/*`
+- table/list rendering through Suitable builders and generated table classes
+- workflow state transitions through `WorkflowService::start()` and `WorkflowService::submitTask()`
+- AI assistant recipes in [AI-ready development guide](/v7/ai-ready-development/guide)
 
 ## What to read next
 

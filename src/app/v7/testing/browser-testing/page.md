@@ -69,37 +69,19 @@ it('renders the login page', function () {
 });
 ```
 
-{% callout title="TODO: verify login route" type="warning" %}
-Laravolt skeletons may expose the login route as `/auth/login` or another application-specific URL. Keep the generated smoke test aligned with the starter kit route.
-{% /callout %}
+The current skeleton redirects `/` to `/auth/login` and names the login route `auth::login.show`.
 
 ## Running browser tests
 
-Laravolt v7 provides an artisan wrapper so teams do not need to remember Pest Browser flags:
+Run browser tests through Pest Browser or the browser command configured by your application:
 
 ```bash
-php artisan laravolt:test:browser
+php artisan test --filter=Browser
+# or, when using Pest Browser directly
+vendor/bin/pest tests/Browser
 ```
 
-Run only Chromium/Chrome:
-
-```bash
-php artisan laravolt:test:browser --browser=chrome
-```
-
-Run with debugging enabled:
-
-```bash
-php artisan laravolt:test:browser --debug
-```
-
-Run in parallel where the test environment supports it:
-
-```bash
-php artisan laravolt:test:browser --parallel
-```
-
-Under the hood, the command delegates to Pest and targets `tests/Browser` by default.
+Keep the exact command in your project README or CI workflow so local and CI runs use the same browser driver.
 
 ## CI setup
 
@@ -117,7 +99,7 @@ Browser tests need Node and Playwright installed before the Pest command runs.
     npx playwright install --with-deps chromium
 
 - name: Run browser tests
-  run: php artisan laravolt:test:browser --browser=chrome
+  run: vendor/bin/pest tests/Browser
 ```
 
 For faster CI, run browser tests after unit/feature tests pass. Browser failures are usually more expensive to debug, so fail fast on PHP syntax, static analysis, and feature tests first.
@@ -152,7 +134,7 @@ A good task prompt:
 ```txt
 Update the Product create form to add SKU input masking.
 Use PrelineForm. Update the browser test to assert the SKU field is present
-and accepts the expected mask pattern. Run laravolt:test:browser if Playwright
+and accepts the expected mask pattern. Run your browser test command if Playwright
 is installed; otherwise explain the exact local setup needed.
 ```
 

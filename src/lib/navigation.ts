@@ -17,7 +17,7 @@ export const v7Navigation: NavSection[] = [
   {
     title: 'Introduction',
     links: [
-      { title: 'Overview', href: '/' },
+      { title: 'Home', href: '/' },
       { title: 'Introduction', href: '/v7/introduction' },
     ],
   },
@@ -34,11 +34,15 @@ export const v7Navigation: NavSection[] = [
         title: 'AI-ready platform',
         href: '/v7/core-concepts/ai-ready-platform',
       },
+      { title: 'Configuration', href: '/v7/core-concepts/configuration' },
     ],
   },
   {
     title: 'UI foundation',
-    links: [{ title: 'Overview', href: '/v7/ui-foundation/overview' }],
+    links: [
+      { title: 'Overview', href: '/v7/ui-foundation/overview' },
+      { title: 'Tables and listings', href: '/v7/ui-foundation/tables' },
+    ],
   },
   {
     title: 'Forms',
@@ -51,6 +55,19 @@ export const v7Navigation: NavSection[] = [
   {
     title: 'Admin workflows',
     links: [{ title: 'Overview', href: '/v7/admin-workflows/overview' }],
+  },
+  {
+    title: 'Workflow & automation',
+    links: [
+      {
+        title: 'Overview',
+        href: '/v7/workflow-and-automation/overview',
+      },
+    ],
+  },
+  {
+    title: 'AI-ready development',
+    links: [{ title: 'Guide', href: '/v7/ai-ready-development/guide' }],
   },
   {
     title: 'Security',
@@ -72,6 +89,8 @@ export const v7Navigation: NavSection[] = [
     title: 'Reference',
     links: [
       { title: 'llms.txt & Copy Markdown', href: '/v7/reference/llms-txt' },
+      { title: 'Artisan commands', href: '/v7/reference/artisan-commands' },
+      { title: 'Package list', href: '/v7/reference/package-list' },
     ],
   },
 ]

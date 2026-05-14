@@ -48,9 +48,7 @@ A Laravolt screen should start from the platform layout instead of creating a on
 </x-volt-app>
 ```
 
-{% callout title="TODO: verify component names" type="warning" %}
-The exact public `<x-volt-*>` component names should be verified against the final v7 package before release. Keep examples conceptually accurate, but do not treat this page as API-final until the component reference is completed.
-{% /callout %}
+The current v7 views include `<x-volt-app>`, `<x-volt-button>`, `<x-volt-alert>`, `<x-volt-panel>`, `<x-volt-table>`, `<x-volt-chart>`, `<x-volt-datepicker>`, `<x-volt-file-upload>`, `<x-volt-notification>`, `<x-volt-titlebar>`, and related UI components. A dedicated component reference can expand this list later.
 
 ## Buttons and actions
 
@@ -76,12 +74,12 @@ This keeps the application vocabulary small. Developers and coding agents can se
 
 Business systems need clear feedback after every state change: saved, rejected, queued, failed, exported, imported, or waiting for approval.
 
-Prefer platform flash helpers over hand-written alert markup:
+Use the shared flash convention over hand-written alert markup:
 
 ```php
-flash()->success('Product saved.');
-flash()->error('The import file could not be processed.');
-flash()->warning('This workflow is waiting for manager approval.');
+return back()->with('success', 'Product saved.');
+return back()->with('error', 'The import file could not be processed.');
+return back()->with('warning', 'This workflow is waiting for manager approval.');
 ```
 
 Then render feedback through the shared layout so alerts have consistent colours, icons, spacing, and accessibility attributes.
@@ -91,7 +89,7 @@ Then render feedback through the shared layout so alerts have consistent colours
 Navigation is part of the application contract. It should be registered in a predictable place and protected by permissions.
 
 ```php
-menu('sidebar')->register(function ($menu) {
+app('laravolt.menu.builder')->register(function ($menu) {
     $menu->add('Products', route('products.index'))
         ->data('icon', 'box')
         ->data('permissions', 'product.read');
@@ -125,9 +123,9 @@ A maintainable Laravolt page usually follows this shape:
         </x-volt-button>
     </x-slot>
 
-    <x-volt-card>
+    <x-volt-panel>
         <livewire:table.product-table />
-    </x-volt-card>
+    </x-volt-panel>
 </x-volt-app>
 ```
 

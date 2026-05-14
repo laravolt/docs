@@ -12,17 +12,17 @@ Laravolt v7 targets the current Laravel and Livewire generation.
 
 | Dependency | Version |
 | --- | --- |
-| PHP | `>= 8.2`, tested up to `8.4` |
-| Laravel framework | `^12.0` or `^13.0` |
+| PHP | `>= 8.2` |
+| Laravel framework components | `^11.0`, `^12.0`, or `^13.0` |
 | Livewire | `^4.0` |
-| Preline UI | `^2.0` |
-| Tailwind CSS | `^3.0` or later &nbsp;&nbsp; _TODO: verify the exact Tailwind version shipped with the starter kit_ |
+| Preline UI assets | `4.1.2` in the current platform asset directives |
+| Tailwind CSS | v4 syntax in the current skeleton (`@import "tailwindcss"`) |
 | Database | Any database supported by Laravel migrations |
 
 Laravolt also relies on common PHP extensions: `bcmath`, `ctype`, `curl`, `gd`, `json`, `mbstring`, `openssl`, `pdo`, and `xml`.
 
 {% callout title="Upgrading from v6?" %}
-Laravolt v6 targeted Laravel 11/12 and Livewire 3. v7 raises the baseline to Laravel 12/13 and Livewire 4. Review [Upgrade guide](/v7/upgrade-guide) before adding v7 to an existing v6 project.
+Laravolt v6 targeted Laravel 11/12 and Livewire 3. v7 keeps Laravel component compatibility broad while moving the UI foundation to Livewire 4 and Preline/Tailwind. Review [Upgrade guide](/v7/upgrade-guide) before adding v7 to an existing v6 project.
 {% /callout %}
 
 ## Install the package
@@ -43,9 +43,7 @@ php artisan laravolt:install
 
 The installer publishes configuration, migrations, assets, and seed data used by the platform modules.
 
-{% callout title="TODO: verify installer flags" type="warning" %}
-Confirm the exact flags and prompts exposed by `laravolt:install` in v7 (for example starter kit selection, optional modules, or non-interactive mode) before documenting them.
-{% /callout %}
+`laravolt:install` currently has no flags. It publishes the skeleton, Laravolt migrations, platform assets, media-library migrations, and Pest 4 setup.
 
 ## Run migrations
 
@@ -65,7 +63,7 @@ Create an administrator account after the platform tables exist:
 php artisan laravolt:admin
 ```
 
-The command asks for name, email, and password. TODO: verify whether v7 supports non-interactive flags (for example `--name`, `--email`, `--password`) for scripted provisioning.
+The command asks for name, email, and password when they are not provided. It also supports positional arguments for scripted provisioning; see [Artisan commands](/v7/reference/artisan-commands) and verify command help before using optional flags in CI.
 
 ## Build frontend assets
 
@@ -85,7 +83,7 @@ pnpm install
 pnpm run build
 ```
 
-Use the same manager consistently across development and CI. The documentation site uses Bun; the application starter kit defaults to npm. TODO: verify the starter kit's preferred package manager in v7.
+Use the same manager consistently across development and CI. The current skeleton uses Tailwind v4 syntax in `resources/css/app.css`; align the package manager with your application starter kit.
 
 ## Project structure
 
@@ -100,7 +98,11 @@ app/
   Policies/
   Providers/
 config/
-  laravolt.php            # TODO: verify published config filenames in v7
+  laravolt/
+    platform.php
+    ui.php
+    menu/
+      system.php
 resources/
   views/
   js/
@@ -126,7 +128,7 @@ After installation:
 php artisan test
 ```
 
-If a step fails, check [Upgrade guide](/v7/upgrade-guide) for dependency notes and TODO items that still need API verification against the live v7 release.
+If a step fails, check [Upgrade guide](/v7/upgrade-guide) for dependency notes and [Artisan commands](/v7/reference/artisan-commands) for command details.
 
 ## What to read next
 

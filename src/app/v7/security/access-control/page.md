@@ -75,7 +75,7 @@ public function approve(PurchaseOrder $purchaseOrder): RedirectResponse
 Menus should not show destinations the current user cannot open.
 
 ```php
-menu('sidebar')->register(function ($menu) {
+app('laravolt.menu.builder')->register(function ($menu) {
     $menu->add('Products', route('products.index'))
         ->data('icon', 'box')
         ->data('permissions', 'product.read');
@@ -132,8 +132,11 @@ Every important permission should have at least one positive and one negative te
 
 ```php
 it('allows product managers to edit products', function () {
+    $role = app(config('laravolt.epicentrum.models.role'))->create(['name' => 'product-manager']);
+    $role->syncPermission(['product.update']);
+
     $user = User::factory()->create();
-    $user->grantPermission('product.update'); // TODO: verify helper name
+    $user->assignRole($role);
 
     $this->actingAs($user)
         ->get(route('products.edit', Product::factory()->create()))
@@ -149,9 +152,7 @@ it('blocks users without product update permission', function () {
 });
 ```
 
-{% callout title="TODO: verify permission helper names" type="warning" %}
-The exact helper methods for granting permissions should be verified against Laravolt v7's user/role API. The testing pattern is the important part: assert both allowed and denied paths.
-{% /callout %}
+Laravolt roles expose `syncPermission([...])`, while users using the platform role concern expose `assignRole($role)` and `hasPermission($permission)`.
 
 ## AI-ready security rules
 
