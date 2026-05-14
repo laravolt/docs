@@ -30,7 +30,7 @@ The main `laravolt/laravolt` package wires the service providers, facades, comma
 | `Laravolt\FileManager` | file management UI |
 | `Laravolt\DatabaseMonitor` | database monitoring surfaces |
 | `Laravolt\Mailkeeper` | queued mail sending utilities |
-| `Laravolt\Thunderclap` | code generation and module scaffolding |
+| `Laravolt\Thunderclap` | [fundamental schema-driven CRUD/module scaffolding](/v7/admin-workflows/thunderclap) from database tables |
 | `Laravolt\Pint` | code style helpers |
 | `Laravolt\SemanticForm` | legacy-compatible form surface kept during migration |
 

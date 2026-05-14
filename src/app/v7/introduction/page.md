@@ -6,13 +6,13 @@ title: Introduction
 
 Laravolt v7 is an **AI-ready Laravel application platform** for teams that need to ship business software without rebuilding the same foundation in every project. {% .lead %}
 
-It combines Laravel conventions, admin UI building blocks, form and table abstractions, access control, workflow patterns, and production defaults into one coherent platform.
+It combines Laravel conventions, Thunderclap scaffolding, admin UI building blocks, form and table abstractions, access control, workflow patterns, and production defaults into one coherent platform.
 
 ## The platform idea
 
 Laravolt is not only an admin panel. It is the layer between a blank Laravel project and the real systems teams build for operations: customer portals, internal back offices, approval flows, reporting dashboards, enterprise workflows, and AI-assisted tools.
 
-A Laravolt application should feel familiar to Laravel developers. Controllers, FormRequests, policies, queues, migrations, Blade, Livewire, and service providers still matter. Laravolt adds the shared product language around them so every project does not invent forms, menus, CRUD screens, actions, and permissions from scratch.
+A Laravolt application should feel familiar to Laravel developers. Controllers, FormRequests, policies, queues, migrations, Blade, Livewire, and service providers still matter. Laravolt adds Thunderclap and the shared product language around them so every project does not invent modules, forms, menus, CRUD screens, actions, and permissions from scratch.
 
 ## Why Laravolt exists
 

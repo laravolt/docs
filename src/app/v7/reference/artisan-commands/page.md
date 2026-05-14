@@ -78,11 +78,13 @@ php artisan make:table {name} {--legacy}
 php artisan make:view {name} {--force} {--title=}
 php artisan make:chart {name}
 php artisan make:statistic {name}
-php artisan laravolt:clap {--table=}
+php artisan laravolt:clap {--table=} {--template=} {--force} {--module=} {--use-existing-models}
 php artisan laravolt:models {--table=}
 ```
 
-Use `make:table` for Suitable/Livewire table classes and `make:view` for Blade views. `make:chart` and `make:statistic` generate Livewire components for dashboard surfaces. Thunderclap commands generate module scaffolding from database tables and list model candidates.
+Use `make:table` for Suitable/Livewire table classes and `make:view` for Blade views. `make:chart` and `make:statistic` generate Livewire components for dashboard surfaces.
+
+Use `laravolt:models` to inspect model candidates in `app/Models`. Use `laravolt:clap` to generate schema-driven module scaffolding from a database table. See [Thunderclap](/v7/admin-workflows/thunderclap) for the full workflow and review checklist.
 
 ## Workflow
 

@@ -149,6 +149,12 @@ A business workflow should leave evidence. At minimum, decide what needs to be r
 
 Use Laravel events, model observers, activity logs, or workflow state transitions depending on the feature. The important thing is to design for review before the system goes live.
 
+## Thunderclap scaffolding
+
+When a database table already exists, use [Thunderclap](/v7/admin-workflows/thunderclap) as the default v7 path for generating the first version of a Laravolt admin module. It can scaffold the model, controller, form requests, views, routes, table view, service provider, and tests from the table schema.
+
+Use the generated module as a starting point, then review authorization, validation, menu entries, labels, relationships, and business-specific actions before shipping it.
+
 ## AI-assisted admin development
 
 Admin workflows are a good fit for AI-assisted development because they follow repeatable patterns. To keep generated code safe:

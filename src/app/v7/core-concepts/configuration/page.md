@@ -22,7 +22,7 @@ Common configuration areas include:
 | `config/laravolt/epicentrum.php` | user, account, role, and permission model configuration |
 | `config/laravolt/suitable.php` | table/listing behaviour |
 | `config/laravolt/workflow.php` | workflow integration |
-| package configs | modules such as auto-crud, asset, media, lookup, file-manager, mailkeeper, database-monitor, and thunderclap |
+| package configs | modules such as auto-crud, asset, media, lookup, file-manager, mailkeeper, database-monitor, and [thunderclap](/v7/admin-workflows/thunderclap) |
 
 Exact filenames may vary by package publish tag. If a file is missing, inspect the installed package publish providers before assuming the option is unavailable.
 
@@ -66,6 +66,12 @@ That means custom user or role classes should be configured first, then tested t
 php artisan laravolt:admin
 php artisan laravolt:sync-permission
 ```
+
+## Thunderclap configuration
+
+[Thunderclap](/v7/admin-workflows/thunderclap) publishes `config/laravolt/thunderclap.php` for schema-driven module generation. Use it to control excluded columns, generated module namespace, target directory, route defaults, transformer class, and available stub templates.
+
+Keep those defaults close to the conventions your team wants in generated admin modules. If agents generate modules with Thunderclap, ask them to report any config keys they changed and why.
 
 ## Safe customization order
 
