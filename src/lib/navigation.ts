@@ -50,6 +50,16 @@ export const v7Navigation: NavSection[] = [
       { title: 'Overview', href: '/v7/forms/overview' },
       { title: 'Validation', href: '/v7/forms/validation' },
       { title: 'Input masking', href: '/v7/forms/input-masking' },
+      { title: 'Custom fields', href: '/v7/forms/custom-fields' },
+      { title: 'Layouts', href: '/v7/forms/layouts' },
+    ],
+  },
+  {
+    title: 'UI components',
+    links: [
+      { title: 'Buttons', href: '/v7/ui-components/buttons' },
+      { title: 'Cards', href: '/v7/ui-components/cards' },
+      { title: 'Modals', href: '/v7/ui-components/modals' },
     ],
   },
   {
@@ -57,6 +67,13 @@ export const v7Navigation: NavSection[] = [
     links: [
       { title: 'Overview', href: '/v7/admin-workflows/overview' },
       { title: 'Thunderclap', href: '/v7/admin-workflows/thunderclap' },
+    ],
+  },
+  {
+    title: 'Workflows',
+    links: [
+      { title: 'Approval flows', href: '/v7/workflows/approval-flows' },
+      { title: 'Notifications', href: '/v7/workflows/notifications' },
     ],
   },
   {
@@ -74,7 +91,12 @@ export const v7Navigation: NavSection[] = [
   },
   {
     title: 'AI-ready development',
-    links: [{ title: 'Guide', href: '/v7/ai-ready-development/guide' }],
+    links: [
+      { title: 'Guide', href: '/v7/ai-ready-development/guide' },
+      { title: 'AI Coding Quickstart', href: '/v7/ai-coding-quickstart' },
+      { title: 'Thunderclap Recipes', href: '/v7/thunderclap-recipes' },
+      { title: 'AI Task Patterns', href: '/v7/ai-task-patterns' },
+    ],
   },
   {
     title: 'Security',
