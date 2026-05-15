@@ -111,6 +111,20 @@ export const v7Navigation: NavSection[] = [
     ],
   },
   {
+    title: 'Troubleshooting',
+    links: [
+      { title: 'Common issues', href: '/v7/troubleshooting/common-issues' },
+    ],
+  },
+  {
+    title: 'Advanced patterns',
+    links: [
+      { title: 'Multi-tenancy', href: '/v7/advanced/multi-tenancy' },
+      { title: 'API integration', href: '/v7/advanced/api-integration' },
+      { title: 'Custom generators', href: '/v7/advanced/custom-generators' },
+    ],
+  },
+  {
     title: 'Upgrade',
     links: [{ title: 'Upgrade guide', href: '/v7/upgrade-guide' }],
   },
@@ -120,6 +134,8 @@ export const v7Navigation: NavSection[] = [
       { title: 'llms.txt & Copy Markdown', href: '/v7/reference/llms-txt' },
       { title: 'Artisan commands', href: '/v7/reference/artisan-commands' },
       { title: 'Package list', href: '/v7/reference/package-list' },
+      { title: 'Configuration', href: '/v7/reference/configuration' },
+      { title: 'Performance', href: '/v7/reference/performance' },
     ],
   },
 ]
