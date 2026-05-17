@@ -1,8 +1,152 @@
-export const navigation = [
+export type NavLink = { title: string; href: string }
+export type NavSection = { title: string; links: NavLink[] }
+export type VersionId = 'v7' | 'v6'
+
+export type Version = {
+  id: VersionId
+  label: string
+  description: string
+  /** Landing URL users should see when they switch to this version. */
+  homeHref: string
+  /** URL prefix that identifies pages belonging to this version. */
+  pathPrefix: string
+  navigation: NavSection[]
+}
+
+export const v7Navigation: NavSection[] = [
   {
     title: 'Introduction',
     links: [
-      { title: 'Getting started', href: '/' },
+      { title: 'Home', href: '/' },
+      { title: 'Introduction', href: '/v7/introduction' },
+    ],
+  },
+  {
+    title: 'Getting started',
+    links: [
+      { title: 'Installation', href: '/v7/getting-started/installation' },
+    ],
+  },
+  {
+    title: 'Core concepts',
+    links: [
+      {
+        title: 'AI-ready platform',
+        href: '/v7/core-concepts/ai-ready-platform',
+      },
+      { title: 'Configuration', href: '/v7/core-concepts/configuration' },
+    ],
+  },
+  {
+    title: 'UI foundation',
+    links: [
+      { title: 'Overview', href: '/v7/ui-foundation/overview' },
+      { title: 'Tables and listings', href: '/v7/ui-foundation/tables' },
+    ],
+  },
+  {
+    title: 'Forms',
+    links: [
+      { title: 'Overview', href: '/v7/forms/overview' },
+      { title: 'Validation', href: '/v7/forms/validation' },
+      { title: 'Input masking', href: '/v7/forms/input-masking' },
+      { title: 'Custom fields', href: '/v7/forms/custom-fields' },
+      { title: 'Layouts', href: '/v7/forms/layouts' },
+    ],
+  },
+  {
+    title: 'UI components',
+    links: [
+      { title: 'Buttons', href: '/v7/ui-components/buttons' },
+      { title: 'Cards', href: '/v7/ui-components/cards' },
+      { title: 'Modals', href: '/v7/ui-components/modals' },
+    ],
+  },
+  {
+    title: 'Admin workflows',
+    links: [
+      { title: 'Overview', href: '/v7/admin-workflows/overview' },
+      { title: 'Thunderclap', href: '/v7/admin-workflows/thunderclap' },
+      { title: 'Business actions', href: '/v7/admin-workflows/business-actions' },
+    ],
+  },
+  {
+    title: 'Workflows',
+    links: [
+      { title: 'Approval flows', href: '/v7/workflows/approval-flows' },
+      { title: 'Notifications', href: '/v7/workflows/notifications' },
+    ],
+  },
+  {
+    title: 'Workflow & automation',
+    links: [
+      {
+        title: 'Overview',
+        href: '/v7/workflow-and-automation/overview',
+      },
+      {
+        title: 'MVP demo validation',
+        href: '/v7/workflow-and-automation/mvp-demo-validation',
+      },
+    ],
+  },
+  {
+    title: 'AI-ready development',
+    links: [
+      { title: 'Guide', href: '/v7/ai-ready-development/guide' },
+      { title: 'AI Context', href: '/v7/ai-context' },
+      { title: 'AI Coding Quickstart', href: '/v7/ai-coding-quickstart' },
+      { title: 'Thunderclap Recipes', href: '/v7/thunderclap-recipes' },
+      { title: 'Task Recipes', href: '/v7/task-recipes' },
+      { title: 'AI Task Patterns', href: '/v7/ai-task-patterns' },
+    ],
+  },
+  {
+    title: 'Security',
+    links: [
+      { title: 'Access control', href: '/v7/security/access-control' },
+    ],
+  },
+  {
+    title: 'Testing',
+    links: [
+      { title: 'Browser testing', href: '/v7/testing/browser-testing' },
+    ],
+  },
+  {
+    title: 'Troubleshooting',
+    links: [
+      { title: 'Common issues', href: '/v7/troubleshooting/common-issues' },
+    ],
+  },
+  {
+    title: 'Advanced patterns',
+    links: [
+      { title: 'Multi-tenancy', href: '/v7/advanced/multi-tenancy' },
+      { title: 'API integration', href: '/v7/advanced/api-integration' },
+      { title: 'Custom generators', href: '/v7/advanced/custom-generators' },
+    ],
+  },
+  {
+    title: 'Upgrade',
+    links: [{ title: 'Upgrade guide', href: '/v7/upgrade-guide' }],
+  },
+  {
+    title: 'Reference',
+    links: [
+      { title: 'llms.txt & Copy Markdown', href: '/v7/reference/llms-txt' },
+      { title: 'Artisan commands', href: '/v7/reference/artisan-commands' },
+      { title: 'Package list', href: '/v7/reference/package-list' },
+      { title: 'Configuration', href: '/v7/reference/configuration' },
+      { title: 'Performance', href: '/v7/reference/performance' },
+    ],
+  },
+]
+
+export const v6Navigation: NavSection[] = [
+  {
+    title: 'Introduction',
+    links: [
       { title: 'Overview', href: '/v6/overview' },
       { title: 'Installation', href: '/v6/installation' },
       { title: 'Hello World', href: '/v6/hello-world' },
@@ -10,7 +154,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'Core Components',
+    title: 'Core components',
     links: [
       { title: 'Form', href: '/v6/form' },
       { title: 'Table', href: '/v6/table' },
@@ -20,7 +164,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'UI Components',
+    title: 'UI components',
     links: [
       { title: 'Blade Components', href: '/v6/blade-components' },
       { title: 'Statistics', href: '/v6/statistics' },
@@ -28,7 +172,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'Development Practices',
+    title: 'Development practices',
     links: [
       { title: 'Routes', href: '/v6/routes' },
       { title: 'Controller Best Practices', href: '/v6/controller' },
@@ -38,7 +182,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'Advanced Features',
+    title: 'Advanced features',
     links: [
       { title: 'Auto CRUD', href: '/v6/auto-crud' },
       { title: 'Workflow', href: '/v6/workflow' },
@@ -55,10 +199,49 @@ export const navigation = [
     ],
   },
   {
-    title: 'Development Guidelines',
+    title: 'Development guidelines',
     links: [
       { title: 'Code Quality', href: '/v6/code-quality' },
       { title: 'Git Guidelines', href: '/v6/git-guidelines' },
     ],
   },
 ]
+
+export const versions: Version[] = [
+  {
+    id: 'v7',
+    label: 'v7',
+    description: 'Current',
+    homeHref: '/',
+    pathPrefix: '/v7',
+    navigation: v7Navigation,
+  },
+  {
+    id: 'v6',
+    label: 'v6',
+    description: 'Legacy',
+    homeHref: '/v6/overview',
+    pathPrefix: '/v6',
+    navigation: v6Navigation,
+  },
+]
+
+/**
+ * Find the version a given pathname belongs to.
+ *
+ * Defaults to v7 so the landing page (`/`) and any new top-level routes
+ * surface the current documentation.
+ */
+export function getVersionForPath(pathname: string | null | undefined): Version {
+  if (pathname && pathname.startsWith('/v6')) return versions[1]
+  return versions[0]
+}
+
+/**
+ * Union of every version's navigation. Use this for global lookups that
+ * should work regardless of the active version (for example, search result
+ * section titles).
+ */
+export const navigation: NavSection[] = versions.flatMap(
+  (version) => version.navigation,
+)

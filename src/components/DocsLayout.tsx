@@ -1,6 +1,7 @@
 import { type Node } from '@markdoc/markdoc'
 
 import { DocsHeader } from '@/components/DocsHeader'
+import { LlmsCopyButton } from '@/components/LlmsCopyButton'
 import { PrevNextLinks } from '@/components/PrevNextLinks'
 import { Prose } from '@/components/Prose'
 import { TableOfContents } from '@/components/TableOfContents'
@@ -22,6 +23,7 @@ export function DocsLayout({
       <div className="max-w-2xl min-w-0 flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
         <article>
           <DocsHeader title={title} />
+          <LlmsCopyButton />
           <Prose>{children}</Prose>
         </article>
         <PrevNextLinks />
