@@ -94,8 +94,10 @@ export const v7Navigation: NavSection[] = [
     title: 'AI-ready development',
     links: [
       { title: 'Guide', href: '/v7/ai-ready-development/guide' },
+      { title: 'AI Context', href: '/v7/ai-context' },
       { title: 'AI Coding Quickstart', href: '/v7/ai-coding-quickstart' },
       { title: 'Thunderclap Recipes', href: '/v7/thunderclap-recipes' },
+      { title: 'Task Recipes', href: '/v7/task-recipes' },
       { title: 'AI Task Patterns', href: '/v7/ai-task-patterns' },
     ],
   },
