@@ -178,5 +178,6 @@ Use PrelineForm for forms. Use Suitable for the listing. Do not invent package A
 ## What to read next
 
 - [Forms overview](/v7/forms/overview) — form conventions for create/edit screens.
+- [Business actions](/v7/admin-workflows/business-actions) — the v7 convention for non-CRUD operations on top of generated modules.
 - [Access control](/v7/security/access-control) — protect resources and actions.
 - [Browser testing](/v7/testing/browser-testing) — verify admin workflows in a real browser.

@@ -67,6 +67,7 @@ export const v7Navigation: NavSection[] = [
     links: [
       { title: 'Overview', href: '/v7/admin-workflows/overview' },
       { title: 'Thunderclap', href: '/v7/admin-workflows/thunderclap' },
+      { title: 'Business actions', href: '/v7/admin-workflows/business-actions' },
     ],
   },
   {
