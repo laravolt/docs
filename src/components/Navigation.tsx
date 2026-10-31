@@ -1,8 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-import { navigation } from '@/lib/navigation'
+import { getVersionForPath } from '@/lib/navigation'
 
 export function Navigation({
   className,
@@ -12,11 +14,18 @@ export function Navigation({
   onLinkClick?: React.MouseEventHandler<HTMLAnchorElement>
 }) {
   let pathname = usePathname()
+  let activeVersion = getVersionForPath(pathname)
 
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
+      <p className="mb-6 flex items-baseline gap-2 font-display text-xs font-semibold tracking-wide text-slate-500 uppercase dark:text-slate-400">
+        <span>Laravolt {activeVersion.label}</span>
+        <span className="text-[10px] font-medium tracking-normal text-slate-400 normal-case dark:text-slate-500">
+          {activeVersion.description}
+        </span>
+      </p>
       <ul role="list" className="space-y-9">
-        {navigation.map((section) => (
+        {activeVersion.navigation.map((section) => (
           <li key={section.title}>
             <h2 className="font-display font-medium text-slate-900 dark:text-white">
               {section.title}

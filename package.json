@@ -6,10 +6,13 @@
     "node": ">=22.14.0"
   },
   "scripts": {
+    "predev": "node scripts/generate-llms.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/generate-llms.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "llms": "node scripts/generate-llms.mjs"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {

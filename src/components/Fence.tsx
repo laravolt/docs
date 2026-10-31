@@ -42,10 +42,10 @@ function CheckIcon(props: Readonly<React.ComponentPropsWithoutRef<'svg'>>) {
 
 export function Fence({
   children,
-  language,
+  language = 'txt',
 }: Readonly<{
   children: string
-  language: string
+  language?: string
 }>) {
   const [copied, setCopied] = useState(false)
 

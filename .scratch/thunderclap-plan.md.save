@@ -1,0 +1,3 @@
+Recommended approach: **create a fresh Thunderclap-first branch/app based on `laravolt/laravolt:v7.0.0-beta.3`, then port only the useful workflow layer from current VoltProcure.**
+
+The current repo at `/Users/rama/Laravolt/voltprocure` already has good domain schema, actions, seed story, Docker work, and feature-test intent, but the CRUD/admin UI is hand-built in [routes/web.php](../voltprocure/routes/web.php) and `resources/views/voltpr
