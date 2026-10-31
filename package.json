@@ -29,12 +29,12 @@
     "fast-glob": "^3.3.3",
     "flexsearch": "^0.7.43",
     "js-yaml": "^4.1.0",
-    "next": "^15.3.1",
+    "next": "^15.5.28",
     "next-themes": "^0.2.1",
     "prism-react-renderer": "^2.4.1",
     "prismjs": "^1.30.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.10",
+    "react-dom": "^19.1.10",
     "react-highlight-words": "^0.21.0",
     "simple-functional-loader": "^1.2.1",
     "tailwindcss": "^4.1.4",
@@ -42,10 +42,13 @@
   },
   "devDependencies": {
     "eslint": "^8.57.1",
-    "eslint-config-next": "^15.3.1",
+    "eslint-config-next": "^15.5.28",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "sharp": "0.33.1"
+    "sharp": "^0.35.5"
+  },
+  "overrides": {
+    "postcss": "8.5.30"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
