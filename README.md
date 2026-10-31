@@ -1,3 +1,5 @@
+> **Archived.** This Next.js docs site is replaced by [laravolt/docs-remix](https://github.com/laravolt/docs-remix).
+
 # Syntax
 
 Syntax is a [Tailwind Plus](https://tailwindcss.com/plus) site template built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
